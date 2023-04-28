@@ -20,14 +20,16 @@ class UserServiceImpl implements UserService {
 
     @Override
     void saveUsers(User user){
-        usersRepository.saveAll(user)
+        usersRepository.saveAll(user.collect(){
+            new User(name: it.name, email: it.email)
+        })
     }
 
     @Override
     User getUsers(String id) {
         User user = null
-        Optional<User> optional = usersRepository.findAllById(id)
-        if (optional.isPresent()){
+        Optional<User> optional = usersRepository.findById(id)
+        if (optional.isPresent()) {
             user = optional.get()
         }
         return user
