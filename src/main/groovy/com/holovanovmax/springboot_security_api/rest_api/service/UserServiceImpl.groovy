@@ -19,8 +19,8 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    saveUsers(User user) {
-        return usersRepository.save(user.collect() {
+    void saveUsers(User user) {
+        usersRepository.save(user.collect() {
             new User(name: it.name, email: it.email)
         })
     }
