@@ -8,7 +8,7 @@ interface UserService {
 
     void saveUsers(User user)
 
-    User getUsers(String id)
+    User getUser(String id)
 
     void deleteUser(String id)
 

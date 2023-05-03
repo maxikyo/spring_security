@@ -22,7 +22,7 @@ class Controller {
 
     @GetMapping("/users/{id}")
     User getUsers(@PathVariable String id) {
-        User user = userService.getUsers(id)
+        User user = userService.getUser(id)
         return user
     }
 
