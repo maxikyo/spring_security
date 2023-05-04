@@ -6,7 +6,7 @@ interface UserService {
 
     List<User> getAllUsers()
 
-    void saveUsers(User user)
+    User saveUser(User user)
 
     User getUser(String id)
 
