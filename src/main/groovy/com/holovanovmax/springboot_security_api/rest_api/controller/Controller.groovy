@@ -27,7 +27,7 @@ class Controller {
     }
 
     @PostMapping("/users")
-    void addUsers(@RequestBody List<User> user){
+    addUsers(@RequestBody List<User> user){
         userService.saveUser(user)
     }
 
