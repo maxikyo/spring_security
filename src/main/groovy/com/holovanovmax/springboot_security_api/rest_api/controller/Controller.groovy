@@ -20,15 +20,17 @@ class Controller {
         return allUsers
     }
 
+    @PostMapping("/users")
+    void addUsers(@RequestBody List<User> user){
+        userService.saveUser(user)
+    }
+
     @GetMapping("/users/{id}")
     User getUsers(@PathVariable String id) {
         User user = userService.getUser(id)
         return user
     }
 
-    @PostMapping("/users")
-    addUsers(@RequestBody List<User> user){
-        userService.saveUser(user)
-    }
+
 
 }
