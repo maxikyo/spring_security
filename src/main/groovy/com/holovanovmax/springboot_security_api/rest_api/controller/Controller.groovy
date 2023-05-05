@@ -27,8 +27,7 @@ class Controller {
 
     @GetMapping("/users/{id}")
     User getUsers(@PathVariable String id) {
-        User user = userService.getUser(id)
-        return user
+        userService.getUser(id)
     }
 
     @DeleteMapping("/users/{id}")
