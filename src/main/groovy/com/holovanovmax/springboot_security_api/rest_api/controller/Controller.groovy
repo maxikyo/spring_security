@@ -6,12 +6,7 @@ import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @Slf4j
 @RestController
@@ -26,7 +21,7 @@ class Controller {
     }
 
     @PostMapping("/users")
-    void addUsers(@RequestBody List<User> user){
+    void addUsers(@RequestBody User user) {
         userService.saveUser(user)
     }
 
@@ -49,11 +44,11 @@ class Controller {
         }
     }
 
-    @GetMapping("/users")
-    List<User> findAllUsersByName(@PathVariable String name) {
-        List<User> users = userService.findAllByName(name)
-        return users
-    }
+//    @GetMapping("/users")
+//    List<User> findAllUsersByName(@PathVariable String name) {
+//        List<User> users = userService.findAllByName(name)
+//        return users
+//    }
 
 
 }

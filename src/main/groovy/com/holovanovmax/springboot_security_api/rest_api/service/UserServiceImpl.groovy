@@ -13,16 +13,13 @@ class UserServiceImpl implements UserService {
 
     @Override
     List<User> getAllUsers(){
-        return usersRepository.findAll().collect(){
-            new User(name: it.name, email: it.email)
-        }
+        return usersRepository.findAll()
+
     }
 
     @Override
     void saveUser(User user) {
-        usersRepository.save(user.collect() {
-            new User(name: it.name, email: it.email)
-        })
+        usersRepository.save(user)
     }
 
     @Override
@@ -37,8 +34,6 @@ class UserServiceImpl implements UserService {
 
     @Override
     List<User> findAllByName(String name) {
-        List<User> users = usersRepository.findAllByName(name)
-        return users
+        usersRepository.findAllByName(name)
     }
-
 }
