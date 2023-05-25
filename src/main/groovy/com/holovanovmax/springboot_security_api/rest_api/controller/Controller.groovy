@@ -32,13 +32,13 @@ class Controller {
 
     @DeleteMapping("/users/{id}")
     ResponseEntity deleteProductById(@PathVariable String id) {
-        Optional<User> product = this.userService.deleteUser(id)
+        Optional<User> product = this.userService.getUser(id)
 
         if (product.isPresent()) {
             this.userService.deleteUser(id)
             return ResponseEntity.ok("Done")
         } else {
-            log.warn('user with id ' + id + ' not found! And did not deleted')
+            log.warn 'user with id ' + id + ' not found! And did not deleted'
             return new ResponseEntity(HttpStatus.NOT_FOUND)
         }
     }
