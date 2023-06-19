@@ -12,7 +12,7 @@ class UserServiceImpl implements UserService {
     private UsersRepository usersRepository
 
     @Override
-    List<User> getAllUsers(){
+    List<User> getAllUsers() {
         return usersRepository.findAll()
 
     }
@@ -33,7 +33,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    List<User> findAllByName(String name) {
-        usersRepository.findAllByName(name)
+    User findByName(String name) {
+        usersRepository.findByName(name)
     }
 }

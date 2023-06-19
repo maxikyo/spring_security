@@ -12,8 +12,6 @@ interface UserService {
 
     void deleteUser(String id)
 
-    List<User> findAllByName(String name)
+    User findByName(String name)
 
-
-//    Object saveUser(List<User> users)
 }

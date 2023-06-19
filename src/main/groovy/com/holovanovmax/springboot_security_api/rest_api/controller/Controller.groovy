@@ -43,11 +43,13 @@ class Controller {
         }
     }
 
-//    @GetMapping("/users")
-//    List<User> findAllUsersByName(@PathVariable String name) {
-//        List<User> users = userService.findAllByName(name)
-//        return users
-//    }
+    @GetMapping("/search/{name}")
+    User findUser(@PathVariable String name){
+        User concrete = userService.findByName(name)
+        return concrete
+        //Optional <User> user =
+                //this.userService.findByName(name)
+    }
 
 
 }
