@@ -47,8 +47,6 @@ class Controller {
     User findUser(@PathVariable String name){
         User concrete = userService.findByName(name)
         return concrete
-        //Optional <User> user =
-                //this.userService.findByName(name)
     }
 
 
