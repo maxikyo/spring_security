@@ -3,6 +3,7 @@ package com.holovanovmax.springboot_security_api.rest_api.controller
 import com.holovanovmax.springboot_security_api.rest_api.model.User
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import groovy.util.logging.Slf4j
+import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -11,12 +12,12 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
 @Slf4j
-@Controller
+@RestController
 class UserController {
     @Autowired
     private UserService userService
 
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     List<User> showAllUsers() {
         List<User> allUsers = userService.getAllUsers()
         return allUsers
