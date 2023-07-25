@@ -14,6 +14,6 @@ interface UserService {
 
     void registerNewUser (User user)
 
-    User findByName(String name)
+    Optional<User> findByName(String name)
 
 }

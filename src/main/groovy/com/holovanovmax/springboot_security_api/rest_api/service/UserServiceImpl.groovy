@@ -39,18 +39,19 @@ class UserServiceImpl implements UserService {
 
     @Override
     void registerNewUser(User user) {
-        if (usersRepository.findByName(user.getName()) != null) {
-            throw new RuntimeException("Пользователь с таким именем уже существует");
+        if (findByName(user.getName()) != null) {
+            throw new RuntimeException("Пользователь с таким именем уже существует")
         }
 
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+        String encodedPassword = passwordEncoder.encode(user.getPassword())
+        user.setPassword(encodedPassword)
 
-        usersRepository.save(user);
+        usersRepository.save(user)
     }
 
+
     @Override
-    User findByName(String name) {
+    Optional<User> findByName(String name) {
         usersRepository.findByName(name)
     }
 

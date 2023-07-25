@@ -6,11 +6,13 @@ import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 
 @Slf4j
-@RestController
-class Controller {
+@Controller
+class UserController {
     @Autowired
     private UserService userService
 
@@ -20,17 +22,17 @@ class Controller {
         return allUsers
     }
 
-    @PostMapping("/users")
+    @PostMapping("/api/users")
     void addUsers(@RequestBody User user) {
         userService.saveUser(user)
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/api/users/{id}")
     User getUsers(@PathVariable String id) {
         userService.getUser(id)
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/api/users/{id}")
     ResponseEntity deleteProductById(@PathVariable String id) {
         Optional<User> product = this.userService.getUser(id)
 
@@ -43,10 +45,22 @@ class Controller {
         }
     }
 
-    @GetMapping("/search/{name}")
+    @GetMapping("/api/search/{name}")
     User findUser(@PathVariable String name){
         User concrete = userService.findByName(name)
         return concrete
+    }
+
+    @GetMapping("/api/registration")
+    String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User())
+        return "registration"
+    }
+
+    @PostMapping("/api/registration")
+    String registerNewUser(User user) {
+        userService.registerNewUser(user)
+        return "redirect:/login"
     }
 
 
