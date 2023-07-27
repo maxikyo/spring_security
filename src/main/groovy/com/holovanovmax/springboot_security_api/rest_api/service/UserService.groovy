@@ -2,6 +2,8 @@ package com.holovanovmax.springboot_security_api.rest_api.service
 
 import com.holovanovmax.springboot_security_api.rest_api.model.User
 
+import java.security.Principal
+
 interface UserService {
 
     List<User> getAllUsers()
@@ -14,6 +16,8 @@ interface UserService {
 
     void registerNewUser (User user)
 
-    Optional<User> findByName(String name)
+    User findByName(String name)
+
+    User findByPrincipal(Principal principal)
 
 }

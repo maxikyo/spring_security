@@ -9,30 +9,60 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.ModelAndView
+
+import java.security.Principal
 
 @Slf4j
-@RestController
+@Controller
 class UserController {
     @Autowired
     private UserService userService
 
+    @GetMapping("/loginPage")
+    String loginPage(@RequestParam (required = false) boolean error, Model model) {
+        if(error){
+            model.addAttribute("message", "error login")
+        }
+        return "login"
+    }
+
+    @GetMapping("/registration")
+    String registrationPage(Model model) {
+        return "registration"
+    }
+
+    @GetMapping("/")
+    String mainPage(Model model, Principal principal) {
+        User user = userService.findByPrincipal(principal)
+        model.addAttribute("name",user.name)
+        model.addAttribute("role",user.role)
+        return "mainPage"
+    }
+
+
+    @ResponseBody
     @GetMapping("/api/users")
     List<User> showAllUsers() {
         List<User> allUsers = userService.getAllUsers()
         return allUsers
     }
 
+    @ResponseBody
     @PostMapping("/api/users")
     void addUsers(@RequestBody User user) {
         userService.saveUser(user)
     }
 
+    @ResponseBody
     @GetMapping("/api/users/{id}")
     User getUsers(@PathVariable String id) {
         userService.getUser(id)
     }
 
+    @ResponseBody
     @DeleteMapping("/api/users/{id}")
     ResponseEntity deleteProductById(@PathVariable String id) {
         Optional<User> product = this.userService.getUser(id)
@@ -46,23 +76,22 @@ class UserController {
         }
     }
 
+    @ResponseBody
     @GetMapping("/api/search/{name}")
     User findUser(@PathVariable String name){
         User concrete = userService.findByName(name)
         return concrete
     }
 
-    @GetMapping("/api/registration")
-    String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User())
-        return "registration"
-    }
-
     @PostMapping("/api/registration")
-    String registerNewUser(User user) {
-        userService.registerNewUser(user)
-        return "redirect:/login"
+    ModelAndView registerNewUser(User user, ModelMap model) {
+        try {
+            userService.registerNewUser(user)
+            model.addAttribute("message","registration successful")
+        }catch(RuntimeException e){
+            model.addAttribute("message",e.message)
+        }
+        return new ModelAndView("login", model)
     }
-
 
 }

@@ -16,8 +16,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 @EnableWebSecurity
 class SpringSecurity {
 
-    @Autowired
-    private UserDetailsService userDetailsService
+    @Autowired private UserDetailsService userDetailsService
+    @Autowired private PasswordEncoder passwordEncoder
 
     @Bean
     static PasswordEncoder passwordEncoder(){
@@ -28,13 +28,15 @@ class SpringSecurity {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/users").hasRole("ADMIN")
+                        authorize.requestMatchers("/api/users").hasAuthority("ADMIN")
+                                .requestMatchers("/").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(
                 form -> form
-                        .loginPage("/login")
+                        .loginPage("/loginPage")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/users")
+                        .failureUrl("/loginPage?error=true")
+                        .defaultSuccessUrl("/")
                         .permitAll()
         ).logout(
                 logout -> logout
@@ -45,11 +47,13 @@ class SpringSecurity {
 
     }
 
+
     @Autowired
-    void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder())
+                .passwordEncoder(passwordEncoder)
     }
+
 }
 

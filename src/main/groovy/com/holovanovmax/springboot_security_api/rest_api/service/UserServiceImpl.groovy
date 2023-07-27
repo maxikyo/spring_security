@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 
+import java.security.Principal
+
 @Service
 class UserServiceImpl implements UserService {
 
@@ -39,21 +41,33 @@ class UserServiceImpl implements UserService {
 
     @Override
     void registerNewUser(User user) {
-        if (findByName(user.getName()) != null) {
-            throw new RuntimeException("Пользователь с таким именем уже существует")
+        if(Objects.isNull(user.name)){
+            throw new RuntimeException("Неправильное имя")
+        }
+        if(Objects.isNull(user.password)){
+            throw new RuntimeException("Неправильный пароль")
         }
 
+        if (!Objects.isNull(findByName(user.name))) {
+            throw new RuntimeException("Пользователь с таким именем уже существует")
+        }
         String encodedPassword = passwordEncoder.encode(user.getPassword())
         user.setPassword(encodedPassword)
-
         usersRepository.save(user)
     }
 
 
     @Override
-    Optional<User> findByName(String name) {
-        usersRepository.findByName(name)
+    User findByName(String name) {
+        usersRepository.findByName(name).orElse(null)
     }
 
-
+    @Override
+    User findByPrincipal(Principal principal){
+        if (!principal){
+            return null
+        }else{
+            return findByName(principal.getName())
+        }
+    }
 }
