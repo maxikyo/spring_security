@@ -78,7 +78,7 @@ class UserController {
     ResponseEntity deleteUserById(@PathVariable String id) {
         User user = userService.getUser(id)
         if (user) {
-            this.userService.deleteUser(id)
+            userService.deleteUser(id)
             return ResponseEntity.ok("Done")
         } else {
             log.warn 'user with id ' + id + ' not found! And did not deleted'
