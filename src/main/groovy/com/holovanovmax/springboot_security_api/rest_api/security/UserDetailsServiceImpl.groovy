@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service
    @Autowired
    UserServiceImpl userService
 
-
     @Override
      UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByName(username)

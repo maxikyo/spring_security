@@ -1,6 +1,7 @@
 package com.holovanovmax.springboot_security_api.rest_api.controller
 
 import com.holovanovmax.springboot_security_api.rest_api.model.User
+import com.holovanovmax.springboot_security_api.rest_api.model.UserDto
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,9 +10,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.ui.ModelMap
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.servlet.ModelAndView
 
 import java.security.Principal
 
@@ -29,26 +28,28 @@ class UserController {
         return "login"
     }
 
-    @GetMapping("/registration")
-    String registrationPage(Model model) {
-        return "registration"
-    }
 
     @GetMapping("/")
     String mainPage(Model model, Principal principal) {
         User user = userService.findByPrincipal(principal)
-        model.addAttribute("name",user.name)
-        model.addAttribute("role",user.role)
+        model.addAttribute("name", user.name)
+        model.addAttribute("role", user.role)
         return "mainPage"
     }
 
 
     @ResponseBody
     @GetMapping("/api/users")
-    List<User> showAllUsers() {
-        List<User> allUsers = userService.getAllUsers()
-        return allUsers
+    List<UserDto> showAllUsers() {
+        userService.getAllUsers().collect() {
+            new UserDto(
+                    name: it.name,
+                    password: it.password,
+                    role: it.role,
+            )
+        }
     }
+
 
     @ResponseBody
     @PostMapping("/api/users")
@@ -57,18 +58,26 @@ class UserController {
     }
 
     @ResponseBody
-    @PreAuthorize('hasAuthority("ADMIN") and hasAuthority("Client")')
+    @PreAuthorize('hasAuthority("ADMIN") and hasAuthority("USER")')
     @GetMapping("/api/users/{id}")
-    User getUsers(@PathVariable String id) {
-        userService.getUser(id)
+    UserDto getUsers(@PathVariable String id) {
+        User user = userService.getUser(id)
+        if (user){
+            return new UserDto(
+                    name: user.name,
+                    password: user.password,
+                    role: user.role
+            )
+        }else {
+            return null
+        }
     }
 
     @ResponseBody
     @DeleteMapping("/api/users/{id}")
-    ResponseEntity deleteProductById(@PathVariable String id) {
-        Optional<User> user = userService.getUser(id)
-
-        if (user.isPresent()) {
+    ResponseEntity deleteUserById(@PathVariable String id) {
+        User user = userService.getUser(id)
+        if (user) {
             this.userService.deleteUser(id)
             return ResponseEntity.ok("Done")
         } else {
@@ -79,20 +88,16 @@ class UserController {
 
     @ResponseBody
     @GetMapping("/api/search/{name}")
-    User findUser(@PathVariable String name){
-        User concrete = userService.findByName(name)
-        return concrete
-    }
-
-    @PostMapping("/api/registration")
-    ModelAndView registerNewUser(User user, ModelMap model) {
-        try {
-            userService.registerNewUser(user)
-            model.addAttribute("message","registration successful")
-        }catch(RuntimeException e){
-            model.addAttribute("message",e.message)
+    UserDto findUser(@PathVariable String name){
+        User user = userService.findByName(name)
+        if (user){
+            return new UserDto(
+                name: user.name,
+                password: user.password,
+                role: user.role
+            )
+        }else {
+            return null
         }
-        return new ModelAndView("login", model)
     }
-
 }
