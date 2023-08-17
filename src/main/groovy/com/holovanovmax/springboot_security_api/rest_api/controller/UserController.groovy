@@ -58,7 +58,7 @@ class UserController {
     }
 
     @ResponseBody
-    @PreAuthorize('hasAuthority("ADMIN") and hasAuthority("USER")')
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/api/users/{id}")
     UserDto getUsers(@PathVariable String id) {
         User user = userService.getUser(id)
