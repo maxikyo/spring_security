@@ -20,15 +20,17 @@ class UserController {
     @Autowired
     private UserService userService
 
+
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/loginPage")
-    String loginPage(@RequestParam (required = false) boolean error, Model model) {
-        if(error){
+    String loginPage(@RequestParam(required = false) boolean error, Model model) {
+        if (error) {
             model.addAttribute("message", "error login")
         }
         return "login"
     }
 
-
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/")
     String mainPage(Model model, Principal principal) {
         User user = userService.findByPrincipal(principal)
@@ -39,6 +41,7 @@ class UserController {
 
 
     @ResponseBody
+    @PreAuthorize('hasAuthority("ADMIN")')
     @GetMapping("/api/users")
     List<UserDto> showAllUsers() {
         userService.getAllUsers().collect() {
@@ -52,9 +55,20 @@ class UserController {
 
 
     @ResponseBody
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @PostMapping("/api/users")
-    void addUsers(@RequestBody User user) {
+    UserDto addUsers(@RequestBody User user) {
         userService.saveUser(user)
+        if (user) {
+            return new UserDto(
+                    id: user.id,
+                    name: user.name,
+                    password: user.password,
+                    role: user.role
+            )
+        } else {
+            return null
+        }
     }
 
     @ResponseBody
@@ -74,6 +88,8 @@ class UserController {
     }
 
     @ResponseBody
+    @PreAuthorize('hasAuthority("ADMIN")')
+// or hasAuthority("USER")
     @DeleteMapping("/api/users/{id}")
     ResponseEntity deleteUserById(@PathVariable String id) {
         User user = userService.getUser(id)
@@ -87,6 +103,7 @@ class UserController {
     }
 
     @ResponseBody
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/api/search/{name}")
     UserDto findUser(@PathVariable String name){
         User user = userService.findByName(name)

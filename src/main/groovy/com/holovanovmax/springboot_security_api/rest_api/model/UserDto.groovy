@@ -5,6 +5,10 @@ import jakarta.validation.constraints.NotNull
 
 class UserDto {
 
+
+    String id
+
+
     @NotNull
     @NotEmpty(message = "name can not be empty")
     String name
@@ -14,7 +18,7 @@ class UserDto {
     String password
 
     @NotNull
-    @NotEmpty(message = "name can not be empty")
+    @NotEmpty(message = "role can not be empty")
     String role
 
 }
