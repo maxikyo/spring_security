@@ -20,8 +20,6 @@ class UserController {
     @Autowired
     private UserService userService
 
-
-    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/loginPage")
     String loginPage(@RequestParam(required = false) boolean error, Model model) {
         if (error) {
@@ -30,7 +28,6 @@ class UserController {
         return "login"
     }
 
-    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/")
     String mainPage(Model model, Principal principal) {
         User user = userService.findByPrincipal(principal)
@@ -46,6 +43,7 @@ class UserController {
     List<UserDto> showAllUsers() {
         userService.getAllUsers().collect() {
             new UserDto(
+                    id: it.id,
                     name: it.name,
                     password: it.password,
                     role: it.role,
