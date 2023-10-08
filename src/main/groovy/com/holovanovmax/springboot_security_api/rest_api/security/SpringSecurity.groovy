@@ -31,11 +31,13 @@ class SpringSecurity {
                         authorize.requestMatchers(
                                 "/api/registration",
                                 '/loginPage',
-                                '/registration'
+                                '/registration'//,
+                                //'/api/test_1'
                         ).permitAll()
+                        .anyRequest().authenticated() //-<любой запрос, но для авторизованных пользователей в дальнейшемю
 //                        .hasAnyAuthority("ADMIN", "USER")
 //                        .requestMatchers("/").authenticated()
-                                .anyRequest().hasAnyAuthority("ADMIN", "USER")
+                                //.anyRequest().hasAnyAuthority("ADMIN", "USER")
                 ).formLogin(
                 form -> form
                         .loginPage("/loginPage")

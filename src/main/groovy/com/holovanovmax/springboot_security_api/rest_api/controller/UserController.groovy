@@ -20,6 +20,13 @@ class UserController {
     @Autowired
     private UserService userService
 
+
+//    @GetMapping("/api/test_1")
+//    String test2(Principal principal){
+//        "ok!"
+//    }
+
+
     @GetMapping("/loginPage")
     String loginPage(@RequestParam(required = false) boolean error, Model model) {
         if (error) {
@@ -38,7 +45,7 @@ class UserController {
 
 
     @ResponseBody
-    @PreAuthorize('hasAuthority("ADMIN")')
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/api/users")
     List<UserDto> showAllUsers() {
         userService.getAllUsers().collect() {
