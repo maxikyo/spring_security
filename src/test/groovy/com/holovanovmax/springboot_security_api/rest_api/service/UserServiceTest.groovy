@@ -21,7 +21,11 @@ class UserServiceTest extends Specification {
         User user = userService.getUser("64dbc0d899b0d0031c739f81")
 
         when:
+        currentBalance = new BigDecimal(0)
+        addToBalance = 50.0
 
+        then:
+        user.balance == currentBalance + addToBalance
     }
 }
 
