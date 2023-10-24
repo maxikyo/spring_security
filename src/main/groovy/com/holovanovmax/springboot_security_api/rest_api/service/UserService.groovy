@@ -14,10 +14,18 @@ interface UserService {
 
     void deleteUser(String id)
 
-    void registerNewUser (User user)
+    void registerNewUser(User user)
 
     User findByName(String name)
 
     User findByPrincipal(Principal principal)
 
+    void updateUserBalance(String id, double balance)
+
+
 }
+    //ToDo
+    //У юзера есть баланс, описать бизнес логику, чтобы админ мог добавить/списать деньги на баланс/с баланса, пополнение
+    //сделать через тесты, сделать тест контроллера(mvc), сделать моктест на спринг секьюрити
+
+

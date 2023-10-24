@@ -8,7 +8,6 @@ class UserDto {
 
     String id
 
-
     @NotNull
     @NotEmpty(message = "name can not be empty")
     String name
@@ -20,5 +19,7 @@ class UserDto {
     @NotNull
     @NotEmpty(message = "role can not be empty")
     String role
+
+    def balance
 
 }

@@ -5,4 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface UsersRepository extends MongoRepository <User, String>{
      Optional<User> findByName(String name)
+
+     void updateUserBalance(String id, double balance)
 }

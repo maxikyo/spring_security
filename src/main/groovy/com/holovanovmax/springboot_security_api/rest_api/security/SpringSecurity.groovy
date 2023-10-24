@@ -35,9 +35,6 @@ class SpringSecurity {
                                 //'/api/test_1'
                         ).permitAll()
                         .anyRequest().authenticated() //-<любой запрос, но для авторизованных пользователей в дальнейшемю
-//                        .hasAnyAuthority("ADMIN", "USER")
-//                        .requestMatchers("/").authenticated()
-                                //.anyRequest().hasAnyAuthority("ADMIN", "USER")
                 ).formLogin(
                 form -> form
                         .loginPage("/loginPage")

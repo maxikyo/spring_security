@@ -15,4 +15,6 @@ class User {
 
     String role
 
+    double balance
+
 }

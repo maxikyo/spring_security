@@ -54,13 +54,14 @@ class UserController {
                     name: it.name,
                     password: it.password,
                     role: it.role,
+                    balance: it.balance
             )
         }
     }
 
 
     @ResponseBody
-    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
+    @PreAuthorize('hasAuthority("ADMIN")')
     @PostMapping("/api/users")
     UserDto addUsers(@RequestBody User user) {
         userService.saveUser(user)
@@ -69,7 +70,9 @@ class UserController {
                     id: user.id,
                     name: user.name,
                     password: user.password,
-                    role: user.role
+                    role: user.role,
+                    balance: user.balance
+
             )
         } else {
             return null
@@ -108,7 +111,7 @@ class UserController {
     }
 
     @ResponseBody
-    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
+    @PreAuthorize('hasAuthority("ADMIN")')
     @GetMapping("/api/search/{name}")
     UserDto findUser(@PathVariable String name){
         User user = userService.findByName(name)

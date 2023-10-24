@@ -70,4 +70,18 @@ class UserServiceImpl implements UserService {
             return findByName(principal.getName())
         }
     }
+
+    @Override
+    void updateUserBalance(String id, double balance) {
+
+        usersRepository.updateUserBalance(id, balance)
+
+        User user = usersRepository.findById(id)
+        if (user){
+            def currentBalance = user.getBalance()
+            user.setBalance(currentBalance + amount)
+            usersRepository.save(user)
+        }else
+            throw new IllegalArgumentException("User with #id did not found")
+    }
 }
