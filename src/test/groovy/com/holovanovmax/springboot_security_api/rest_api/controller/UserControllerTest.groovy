@@ -11,8 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import spock.lang.Specification
 
-@RunWith(SpringRunner.class)
-@AutoConfigureMockMvc
+
 @WebMvcTest(UserController.class)
 class UserControllerTest extends Specification{
 
