@@ -2,6 +2,8 @@ package com.holovanovmax.springboot_security_api.rest_api
 
 import com.holovanovmax.springboot_security_api.rest_api.controller.RegistrationController
 import com.holovanovmax.springboot_security_api.rest_api.controller.UserController
+import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
+import com.holovanovmax.springboot_security_api.rest_api.model.User
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import groovy.util.logging.Slf4j
 import org.junit.jupiter.api.Test
@@ -48,6 +50,21 @@ class RestApiApplicationTests{
 //		if (mongoTemplate)
 //			println "mongoTemplate is not Null and working"
 	}
+	def "add money to userBalance"() {
+		given:
+		User user = userService.registerNewUser(new User(
+				name: "name2",
+				password: "pass1",
+				role: "USER"
+		))
+
+		when:
+		User updatedUser = userService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
+
+		then:
+		updatedUser.balance == new BigDecimal("10")
+	}
 }
+
 
 
