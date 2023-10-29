@@ -1,5 +1,6 @@
 package com.holovanovmax.springboot_security_api.rest_api.service
 
+import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
 import com.holovanovmax.springboot_security_api.rest_api.model.User
 
 import java.security.Principal
@@ -20,8 +21,8 @@ interface UserService {
 
     User findByPrincipal(Principal principal)
 
-    void updateUserBalance(String id, double balance)
-
+    User updateUserBalance(String id, BalanceOperation balanceOperation, BigDecimal amount)
+//
 
 }
     //ToDo

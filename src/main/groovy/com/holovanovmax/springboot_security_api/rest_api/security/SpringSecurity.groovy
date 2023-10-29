@@ -31,6 +31,8 @@ class SpringSecurity {
                         authorize.requestMatchers(
                                 "/api/registration",
                                 '/loginPage',
+                                '/addMoney',
+                                'removeMoney',
                                 '/registration'//,
                                 //'/api/test_1'
                         ).permitAll()

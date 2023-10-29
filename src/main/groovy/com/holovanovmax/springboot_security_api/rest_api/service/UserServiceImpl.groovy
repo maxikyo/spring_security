@@ -1,5 +1,6 @@
 package com.holovanovmax.springboot_security_api.rest_api.service
 
+import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
 import com.holovanovmax.springboot_security_api.rest_api.model.User
 import com.holovanovmax.springboot_security_api.rest_api.repository.UsersRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -72,16 +73,21 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    void updateUserBalance(String id, double balance) {
-
-        usersRepository.updateUserBalance(id, balance)
-
-        User user = usersRepository.findById(id)
+    User updateUserBalance(String id, BalanceOperation balanceOperation, BigDecimal amount) {
+        User user = getUser(id)
         if (user){
-            def currentBalance = user.getBalance()
-            user.setBalance(currentBalance + amount)
-            usersRepository.save(user)
+            if(balanceOperation == BalanceOperation.PLUS){
+                user.balance = user.balance + amount
+            }
+            if(balanceOperation == BalanceOperation.MINUS){
+                if(amount > user.balance){
+                    throw new IllegalArgumentException("Balance is ${user.balance} less then ${amount}")
+                }
+                user.balance = user.balance - amount
+            }
+            saveUser(user)
         }else
-            throw new IllegalArgumentException("User with #id did not found")
+            throw new IllegalArgumentException("User with ${id} did not found")
     }
+
 }

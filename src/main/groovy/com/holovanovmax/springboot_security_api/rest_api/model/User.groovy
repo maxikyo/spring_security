@@ -15,6 +15,6 @@ class User {
 
     String role
 
-    double balance
+    BigDecimal balance = new BigDecimal("0")
 
 }

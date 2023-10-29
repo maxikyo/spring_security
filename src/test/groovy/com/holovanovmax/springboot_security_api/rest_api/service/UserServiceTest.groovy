@@ -1,31 +1,43 @@
 package com.holovanovmax.springboot_security_api.rest_api.service
 
+import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
 import com.holovanovmax.springboot_security_api.rest_api.model.User
 import com.holovanovmax.springboot_security_api.rest_api.repository.UsersRepository
-import org.mockito.Mock
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
-import spock.lang.Subject
 
 
-class UserServiceTest extends Specification {
+@SpringBootTest
+class UserServiceTest extends Specification{
 
-    @Subject
+    @Autowired
     UserServiceImpl userService
 
-    @Mock
+    @Autowired
     UsersRepository usersRepository
 
-
-    def "add money to userBalance"(){
+    @Test
+    void "add money to userBalance"(){
         given:
-        User user = userService.getUser("64dbc0d899b0d0031c739f81")
 
+        User user = userService.getUser("64dbc0d899b0d0031c739f81")
+//        given:
+//        User user = userService.registerNewUser(new User(
+//                id: "test5",
+//                name: "name15",
+//                password: "pass2",
+//                role: "USER",
+//                balance: "0"
+//        ))
         when:
-        currentBalance = new BigDecimal(0)
-        addToBalance = 50.0
+        user = userService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
 
         then:
-        user.balance == currentBalance + addToBalance
+        user.balance == new BigDecimal("10")
     }
 }
+
+
 
