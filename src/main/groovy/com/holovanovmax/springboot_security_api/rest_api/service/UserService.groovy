@@ -15,7 +15,7 @@ interface UserService {
 
     void deleteUser(String id)
 
-    void registerNewUser(User user)
+    registerNewUser(User user)
 
     User findByName(String name)
 

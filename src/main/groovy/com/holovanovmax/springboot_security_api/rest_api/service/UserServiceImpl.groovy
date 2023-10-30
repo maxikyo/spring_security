@@ -41,7 +41,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    void registerNewUser(User user) {
+    User registerNewUser(User user) {
         if(Objects.isNull(user.name)){
             throw new RuntimeException("Неправильное имя")
         }
