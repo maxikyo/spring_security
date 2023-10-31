@@ -9,13 +9,13 @@ interface UserService {
 
     List<User> getAllUsers()
 
-    void saveUser(User user)
+    User saveUser(User user)
 
     User getUser(String id)
 
     void deleteUser(String id)
 
-    registerNewUser(User user)
+    User registerNewUser(User user)
 
     User findByName(String name)
 

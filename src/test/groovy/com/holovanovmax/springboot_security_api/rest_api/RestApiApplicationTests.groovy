@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest
 
 
 @Slf4j
+@AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [
         ContextLoader,
 ])
-@AutoConfigureMockMvc
 class RestApiApplicationTests {
 
 }

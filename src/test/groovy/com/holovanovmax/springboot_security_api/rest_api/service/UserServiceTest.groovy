@@ -4,7 +4,6 @@ package com.holovanovmax.springboot_security_api.rest_api.service
 import com.holovanovmax.springboot_security_api.rest_api.contextLoader.ContextLoader
 import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
 import com.holovanovmax.springboot_security_api.rest_api.model.User
-import org.springframework.beans.factory.annotation.Autowired
 
 
 class UserServiceTest extends ContextLoader {
@@ -13,7 +12,7 @@ class UserServiceTest extends ContextLoader {
     def "add money to userBalance"() {
         given:
         User user = userService.registerNewUser(new User(
-                name: "2855521",
+                name: "5454545",
                 password: "pass1",
                 role: "USER"
         ))
@@ -22,7 +21,7 @@ class UserServiceTest extends ContextLoader {
         User updatedUser = userService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
 
         then:
-        updatedUser.balance == new BigDecimal("10")
+        updatedUser.balance == new BigDecimal("11" )
     }
 }
 

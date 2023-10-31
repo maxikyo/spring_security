@@ -9,16 +9,20 @@ import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.stereotype.Component
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestPropertySource
+import org.springframework.test.context.web.WebAppConfiguration
 import spock.lang.Specification
 
 @Slf4j
 @ContextConfiguration(classes = [RestApiApplication])
+@WebAppConfiguration
 @TestPropertySource(properties = ["de.flapdoodle.mongodb.embedded.version=5.0.5"])
 @Component
-class ContextLoader extends Specification implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+public class ContextLoader extends Specification implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+
 
     @Autowired
-    private UserService userService
+    public
+    UserService userService
 
     void setup(){
         log.info("setup")

@@ -26,7 +26,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    void saveUser(User user) {
+    User saveUser(User user) {
         usersRepository.save(user)
     }
 
@@ -54,7 +54,7 @@ class UserServiceImpl implements UserService {
         }
         String encodedPassword = passwordEncoder.encode(user.getPassword())
         user.setPassword(encodedPassword)
-        usersRepository.save(user)
+        saveUser(user)
     }
 
 
@@ -85,7 +85,7 @@ class UserServiceImpl implements UserService {
                 }
                 user.balance = user.balance - amount
             }
-            saveUser(user)
+            return saveUser(user)
         }else
             throw new IllegalArgumentException("User with ${id} did not found")
     }
