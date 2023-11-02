@@ -26,7 +26,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    User saveUser(User user) {
+    User saveUser(User user) {  // - возвращал null
         usersRepository.save(user)
     }
 
@@ -41,7 +41,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    User registerNewUser(User user) {
+    User registerNewUser(User user) {  // // - возвращал null
         if(Objects.isNull(user.name)){
             throw new RuntimeException("Неправильное имя")
         }

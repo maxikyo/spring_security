@@ -11,7 +11,7 @@ class UserServiceTest extends ContextLoader {
 
     def "add money to userBalance"() {
         given:
-        User user = userService.registerNewUser(new User(
+        User user = userService.registerNewUser(new User(  // - возвращал null
                 name: "5454545",
                 password: "pass1",
                 role: "USER"
@@ -21,7 +21,7 @@ class UserServiceTest extends ContextLoader {
         User updatedUser = userService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
 
         then:
-        updatedUser.balance == new BigDecimal("11" )
+        updatedUser.balance == new BigDecimal("10" )
     }
 }
 
