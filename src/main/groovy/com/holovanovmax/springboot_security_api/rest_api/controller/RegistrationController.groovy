@@ -46,6 +46,13 @@ class RegistrationController {
     }
 
     @ResponseBody
+    @GetMapping("/tryToAddMoney")
+    User tryToAddMoney() {
+        User user = userService.findByName("user")
+        userService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("0"))
+    }
+
+    @ResponseBody
     @GetMapping("/removeMoney")
     User removeMoney() {
         User user = userService.findByName("user")

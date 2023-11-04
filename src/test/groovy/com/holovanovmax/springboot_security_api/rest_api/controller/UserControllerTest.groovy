@@ -1,19 +1,17 @@
 //package com.holovanovmax.springboot_security_api.rest_api.controller
 //
 //import com.fasterxml.jackson.databind.ObjectMapper
+//import com.holovanovmax.springboot_security_api.rest_api.contextLoader.ContextLoader
 //import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 //import org.springframework.beans.factory.annotation.Autowired
 //import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 //import org.springframework.boot.test.mock.mockito.MockBean
 //import org.springframework.test.web.servlet.MockMvc
 //import spock.lang.Specification
-
-
-//@WebMvcTest(UserController.class)
-//class UserControllerTest extends Specification{
 //
-//    @MockBean
-//    UserService userService
+//
+//@WebMvcTest(UserController.class)
+//class UserControllerTest extends ContextLoader{
 //
 //    ObjectMapper mapper = new ObjectMapper()
 //

@@ -22,7 +22,6 @@ interface UserService {
     User findByPrincipal(Principal principal)
 
     User updateUserBalance(String id, BalanceOperation balanceOperation, BigDecimal amount)
-//
 
 }
     //ToDo

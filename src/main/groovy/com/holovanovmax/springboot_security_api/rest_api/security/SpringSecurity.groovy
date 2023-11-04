@@ -32,8 +32,9 @@ class SpringSecurity {
                                 "/api/registration",
                                 '/loginPage',
                                 '/addMoney',
+                                '/tryToAddMoney',
                                 'removeMoney',
-                                '/registration'//,
+                                '/registration'
                                 //'/api/test_1'
                         ).permitAll()
                         .anyRequest().authenticated() //-<любой запрос, но для авторизованных пользователей в дальнейшемю
