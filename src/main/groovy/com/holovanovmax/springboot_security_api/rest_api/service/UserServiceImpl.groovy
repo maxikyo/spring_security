@@ -79,18 +79,22 @@ class UserServiceImpl implements UserService {
             if(balanceOperation == BalanceOperation.PLUS){
                 user.balance = user.balance + amount
             }
-            if (balanceOperation == BalanceOperation.PLUS && amount.compareTo(BigDecimal.ZERO) <= 0){
+            if (balanceOperation == BalanceOperation.PLUS && amount <= 0){
                 throw new IllegalArgumentException("Amount must be greater than 0 for addition.");
             }
+
             if(balanceOperation == BalanceOperation.MINUS){
+                if (amount <= 0) {
+                    throw new IllegalArgumentException("Amount must be greater than 0 for subtraction.")
+                }
                 if(amount > user.balance){ //может разделись баланс на разные сервисы или импл(потом пойму) на минус и плюс, по разным классам
                     throw new IllegalArgumentException("Balance is ${user.balance} less then ${amount}")
                 }
                 user.balance = user.balance - amount
             }
-            if (balanceOperation == BalanceOperation.MINUS && amount.compareTo(BigDecimal.ZERO) <= 0){
-                throw new IllegalArgumentException("You cannot remove 0 for the balance");
-            }
+//            if (balanceOperation == BalanceOperation.MINUS && amount <= 0){
+//                throw new IllegalArgumentException("You cannot remove 0 for the balance");
+//            }
             return saveUser(user)
         }else
             throw new IllegalArgumentException("User with ${id} did not found")

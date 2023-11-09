@@ -25,6 +25,24 @@ class UserServiceTest extends ContextLoader {
         updatedUser.balance == new BigDecimal("10" )
     }
 
+    // -> test minus amount for new User with 50$ exist balance (starter bonus for example)
+    def "remove money from UserBalance"(){
+        given:
+        User user1 = userService.registerNewUser(new User(
+                name: "useruser",
+                password: "pass1",
+                role: "USER",
+                balance: 50
+        ))
+
+        when:
+        User updatedUser = userService.updateUserBalance(user1.id, BalanceOperation.MINUS
+                , new BigDecimal("10"))
+
+        then:
+        updatedUser.balance == new BigDecimal("40")
+    }
+
     // -> test plus 0 to the balance
     def "try to add 0 to userBalance"() {
         given:
@@ -60,24 +78,41 @@ class UserServiceTest extends ContextLoader {
         updatedUser.balance == new BigDecimal("10" )
     }
 
-    // -> test minus amount for new User with 50$ exist balance (starter bonus for example)
-    def "remove money from UserBalance"(){
+
+
+    def "if there will PLUS negative on amount"(){
         given:
-        User user1 = userService.registerNewUser(new User(
-                name: "useruser",
+        User user2 = userService.registerNewUser(new User(
+                name: "useruser3",
                 password: "pass1",
                 role: "USER",
                 balance: 50
         ))
 
         when:
-        User updatedUser = userService.updateUserBalance(user1.id, BalanceOperation.MINUS
-                , new BigDecimal("10"))
+        User updatedUser = userService.updateUserBalance(user2.id, BalanceOperation.PLUS
+                , new BigDecimal("-10"))
 
         then:
-        updatedUser.balance == new BigDecimal("40")
+        updatedUser.balance == new BigDecimal("50")
     }
 
+    def "if there will MINUS negative on amount"(){
+        given:
+        User user3 = userService.registerNewUser(new User(
+                name: "useruser4",
+                password: "pass1",
+                role: "USER",
+                balance: 50
+        ))
+
+        when:
+        User updatedUser = userService.updateUserBalance(user3.id, BalanceOperation.MINUS
+                , new BigDecimal("-10"))
+
+        then:
+        updatedUser.balance == new BigDecimal("50")
+    }
     // -> test
 
 
