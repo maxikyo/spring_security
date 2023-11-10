@@ -9,13 +9,13 @@ interface UserService {
 
     List<User> getAllUsers()
 
-    User saveUser(User user)
+    User saveUser(User user) //-> была проблема, что метод возвращал воид, по этому не работало в тестах.
 
     User getUser(String id)
 
     void deleteUser(String id)
 
-    User registerNewUser(User user)
+    User registerNewUser(User user) //->saveUser was return void
 
     User findByName(String name)
 

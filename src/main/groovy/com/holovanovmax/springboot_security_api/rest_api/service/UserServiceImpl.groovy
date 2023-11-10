@@ -17,6 +17,7 @@ class UserServiceImpl implements UserService {
 
     @Autowired
 
+
     private PasswordEncoder passwordEncoder
 
     @Override
@@ -92,9 +93,6 @@ class UserServiceImpl implements UserService {
                 }
                 user.balance = user.balance - amount
             }
-//            if (balanceOperation == BalanceOperation.MINUS && amount <= 0){
-//                throw new IllegalArgumentException("You cannot remove 0 for the balance");
-//            }
             return saveUser(user)
         }else
             throw new IllegalArgumentException("User with ${id} did not found")

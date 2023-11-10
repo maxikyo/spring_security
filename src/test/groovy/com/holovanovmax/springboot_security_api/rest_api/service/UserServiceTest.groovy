@@ -54,6 +54,7 @@ class UserServiceTest extends ContextLoader {
 
         when:
         User updatedUser = userService.updateUserBalance(user.id, BalanceOperation.PLUS
+
                 , new BigDecimal("0"))
 
         then:
@@ -113,8 +114,39 @@ class UserServiceTest extends ContextLoader {
         then:
         updatedUser.balance == new BigDecimal("50")
     }
-    // -> test
 
+    // -> test if user with that id didn't found
+    def "check if user with id is exist"(){
+        given:
+        User user4 = userService.registerNewUser(new User(
+                id: "test1",
+                name: "useruser5",
+                password: "pass1",
+                role: "USER",
+                balance: 50
+        ))
+
+        when:
+        User updatedUser = userService.updateUserBalance("test", BalanceOperation.PLUS
+                , new BigDecimal("10"))
+
+        then:
+        updatedUser.balance == new BigDecimal("60")
+    }
+
+    //test
+    def "when user is null"(){
+        given:
+        User user = userService.getUser("test")
+
+        when:
+        User updatedUser = userService.updateUserBalance(user.getId()
+                    , BalanceOperation.PLUS, new BigDecimal("10"))
+
+
+        then:
+        updatedUser.balance == new BigDecimal("60")
+    }
 
 
 
