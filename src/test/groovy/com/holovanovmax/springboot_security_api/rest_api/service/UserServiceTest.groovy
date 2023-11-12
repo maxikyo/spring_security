@@ -26,7 +26,7 @@ class UserServiceTest extends ContextLoader {
     }
 
     // -> test minus amount for new User with 50$ exist balance (starter bonus for example)
-    def "remove money from UserBalance"(){
+    def "remove money from userBalance"(){
         given:
         User user1 = userService.registerNewUser(new User(
                 name: "useruser",
@@ -44,9 +44,9 @@ class UserServiceTest extends ContextLoader {
     }
 
     // -> test plus 0 to the balance
-    def "try to add 0 to userBalance"() {
+    def "trying to add zero from userBalance"() {
         given:
-        User user = userService.registerNewUser(new User(  // - возвращал null
+        User user = userService.registerNewUser(new User(
                 name: "55664546",
                 password: "pass1",
                 role: "USER"
@@ -58,11 +58,11 @@ class UserServiceTest extends ContextLoader {
                 , new BigDecimal("0"))
 
         then:
-        updatedUser.balance == new BigDecimal("10" )
+        thrown(IllegalArgumentException)
     }
 
     // -> test minus 0 to the balance
-    def "try to remove 0 to userBalance"() {
+    def "trying to remove zero from userBalance"() {
         given:
         User user = userService.registerNewUser(new User(  // - возвращал null
                 name: "user1user2",
@@ -76,12 +76,12 @@ class UserServiceTest extends ContextLoader {
                 , new BigDecimal("0"))
 
         then:
-        updatedUser.balance == new BigDecimal("10" )
+        thrown(IllegalArgumentException)
     }
 
 
 
-    def "if there will PLUS negative on amount"(){
+    def "trying to add negative amount to userBalance"(){
         given:
         User user2 = userService.registerNewUser(new User(
                 name: "useruser3",
@@ -95,10 +95,10 @@ class UserServiceTest extends ContextLoader {
                 , new BigDecimal("-10"))
 
         then:
-        updatedUser.balance == new BigDecimal("50")
+        thrown(IllegalArgumentException)
     }
 
-    def "if there will MINUS negative on amount"(){
+    def "trying to remove negative amount from userBalance"(){
         given:
         User user3 = userService.registerNewUser(new User(
                 name: "useruser4",
@@ -112,40 +112,18 @@ class UserServiceTest extends ContextLoader {
                 , new BigDecimal("-10"))
 
         then:
-        updatedUser.balance == new BigDecimal("50")
+        thrown(IllegalArgumentException)
     }
 
     // -> test if user with that id didn't found
-    def "check if user with id is exist"(){
-        given:
-        User user4 = userService.registerNewUser(new User(
-                id: "test1",
-                name: "useruser5",
-                password: "pass1",
-                role: "USER",
-                balance: 50
-        ))
+    def "checking if user with id is exist"(){
 
         when:
         User updatedUser = userService.updateUserBalance("test", BalanceOperation.PLUS
                 , new BigDecimal("10"))
 
         then:
-        updatedUser.balance == new BigDecimal("60")
-    }
-
-    //test
-    def "when user is null"(){
-        given:
-        User user = userService.getUser("test")
-
-        when:
-        User updatedUser = userService.updateUserBalance(user.getId()
-                    , BalanceOperation.PLUS, new BigDecimal("10"))
-
-
-        then:
-        updatedUser.balance == new BigDecimal("60")
+        thrown(IllegalArgumentException)
     }
 
 
@@ -153,19 +131,6 @@ class UserServiceTest extends ContextLoader {
 //    def "add money to userBalance"() {
 //        userService.updateUserBalance(userService.getUser("test").getId()){ если с айди не существует
 //        }
-//        given:
-//        User user = userService.registerNewUser(new User(  // - возвращал null
-//                name: "5454545",
-//                password: "pass1",
-//                role: "USER"
-//        ))
-//
-//        when:
-//        User updatedUser = userService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
-//
-//        then:
-//        updatedUser.balance == new BigDecimal("10" )
-//    }
 }
 
 
