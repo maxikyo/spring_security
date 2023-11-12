@@ -2,6 +2,7 @@ package com.holovanovmax.springboot_security_api.rest_api.controller
 
 import com.holovanovmax.springboot_security_api.rest_api.model.User
 import com.holovanovmax.springboot_security_api.rest_api.model.UserDto
+import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,6 +20,9 @@ import java.security.Principal
 class UserController {
     @Autowired
     private UserService userService
+
+    @Autowired
+    private BalanceService balanceService
 
 
 //    @GetMapping("/api/test_1")

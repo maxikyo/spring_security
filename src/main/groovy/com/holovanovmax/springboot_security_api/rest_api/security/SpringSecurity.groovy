@@ -1,5 +1,6 @@
 package com.holovanovmax.springboot_security_api.rest_api.security
 
+import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -58,6 +59,7 @@ class SpringSecurity {
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder)
+
     }
 
 }

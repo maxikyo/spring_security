@@ -2,6 +2,7 @@ package com.holovanovmax.springboot_security_api.rest_api.controller
 
 import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
 import com.holovanovmax.springboot_security_api.rest_api.model.User
+import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,8 +20,10 @@ import org.springframework.web.servlet.ModelAndView
 class RegistrationController {
 
     @Autowired
-
     private UserService userService
+
+    @Autowired
+    private BalanceService balanceService
 
     @GetMapping("/registration")
     String registrationPage(Model model) {
@@ -42,20 +45,20 @@ class RegistrationController {
     @GetMapping("/addMoney")
     User addMoney() {
         User user = userService.findByName("user")
-        userService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
+        balanceService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
     }
 
-    @ResponseBody
-    @GetMapping("/tryToAddMoney")
-    User tryToAddMoney() {
-        User user = userService.findByName("user")
-        userService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("0"))
-    }
-
-    @ResponseBody
-    @GetMapping("/removeMoney")
-    User removeMoney() {
-        User user = userService.findByName("user")
-        userService.updateUserBalance(user.id, BalanceOperation.MINUS, new BigDecimal("10"))
-    }
+//    @ResponseBody
+//    @GetMapping("/addMoney")
+//    User tryToAddMoney() {
+//        User user = userService.findByName("user")
+//        balanceService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("0"))
+//    }
+//
+//    @ResponseBody
+//    @GetMapping("/removeMoney")
+//    User removeMoney() {
+//        User user = userService.findByName("user")
+//        balanceService.updateUserBalance(user.id, BalanceOperation.MINUS, new BigDecimal("10"))
+//    }
 }

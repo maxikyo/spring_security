@@ -1,6 +1,7 @@
 package com.holovanovmax.springboot_security_api.rest_api.contextLoader
 
 import com.holovanovmax.springboot_security_api.rest_api.RestApiApplication
+import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,6 +24,10 @@ public class ContextLoader extends Specification implements ApplicationContextIn
     @Autowired
     public
     UserService userService
+
+    @Autowired
+    public
+    BalanceService balanceService
 
     void setup(){
         log.info("setup")

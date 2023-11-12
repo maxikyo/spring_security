@@ -18,7 +18,7 @@ class UserServiceTest extends ContextLoader {
         ))
 
         when:
-        User updatedUser = userService.updateUserBalance(user.id, BalanceOperation.PLUS
+        User updatedUser = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS
                 , new BigDecimal("10"))
 
         then:
@@ -36,7 +36,7 @@ class UserServiceTest extends ContextLoader {
         ))
 
         when:
-        User updatedUser = userService.updateUserBalance(user1.id, BalanceOperation.MINUS
+        User updatedUser = balanceService.updateUserBalance(user1.id, BalanceOperation.MINUS
                 , new BigDecimal("10"))
 
         then:
@@ -44,7 +44,7 @@ class UserServiceTest extends ContextLoader {
     }
 
     // -> test plus 0 to the balance
-    def "trying to add zero from userBalance"() {
+    def "trying to add zero to userBalance"() {
         given:
         User user = userService.registerNewUser(new User(
                 name: "55664546",
@@ -53,7 +53,7 @@ class UserServiceTest extends ContextLoader {
         ))
 
         when:
-        User updatedUser = userService.updateUserBalance(user.id, BalanceOperation.PLUS
+        User updatedUser = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS
 
                 , new BigDecimal("0"))
 
@@ -72,7 +72,7 @@ class UserServiceTest extends ContextLoader {
         ))
 
         when:
-        User updatedUser = userService.updateUserBalance(user.id, BalanceOperation.MINUS
+        User updatedUser = balanceService.updateUserBalance(user.id, BalanceOperation.MINUS
                 , new BigDecimal("0"))
 
         then:
@@ -91,7 +91,7 @@ class UserServiceTest extends ContextLoader {
         ))
 
         when:
-        User updatedUser = userService.updateUserBalance(user2.id, BalanceOperation.PLUS
+        User updatedUser = balanceService.updateUserBalance(user2.id, BalanceOperation.PLUS
                 , new BigDecimal("-10"))
 
         then:
@@ -108,7 +108,7 @@ class UserServiceTest extends ContextLoader {
         ))
 
         when:
-        User updatedUser = userService.updateUserBalance(user3.id, BalanceOperation.MINUS
+        User updatedUser = balanceService.updateUserBalance(user3.id, BalanceOperation.MINUS
                 , new BigDecimal("-10"))
 
         then:
@@ -116,10 +116,10 @@ class UserServiceTest extends ContextLoader {
     }
 
     // -> test if user with that id didn't found
-    def "checking if user with id is exist"(){
+    def "trying to add money for no exist user"(){
 
         when:
-        User updatedUser = userService.updateUserBalance("test", BalanceOperation.PLUS
+        User updatedUser = balanceService.updateUserBalance("test", BalanceOperation.PLUS
                 , new BigDecimal("10"))
 
         then:
