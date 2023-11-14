@@ -25,14 +25,45 @@ class UserController {
     private BalanceService balanceService
 
 
-//    @GetMapping("/api/test_1")
-//    String test2(Principal principal){
-//        "ok!"
-//    }
+    @GetMapping("/api/test_1")
+    String test2(Principal principal){
+        "ok!"
+    }
+
+    @GetMapping("/api/test_2")
+    User userTest2(){
+//        User user1 = userService.getUser("64dbc0d899b0d0031c739f81")
+//        User user2 = userService.getUser("64dbc0d899b0d0031c739f81")
+//        log.info(user1.balance.toString(), user2.balance.toString())
+//
+//        user1.balance = user1.balance + 10
+//        user2.balance = user2.balance + 20
+//        userService.saveUser(user1)
+//        userService.saveUser(user2)
+//
+//        user1 = userService.getUser("64dbc0d899b0d0031c739f81")
+//        user2 = userService.getUser("64dbc0d899b0d0031c739f81")
+//        log.info(user1.balance.toString(), user2.balance.toString())
+
+        return user1
+    }
 
 
     @GetMapping("/loginPage")
     String loginPage(@RequestParam(required = false) boolean error, Model model) {
+        User user1 = userService.getUser("64dbc0d899b0d0031c739f81")
+        User user2 = userService.getUser("64dbc0d899b0d0031c739f81")
+        log.info("User 1 before = ${user1.balance.toString()}") //2 переменные
+        log.info("User 2 before = ${user2.balance.toString()}")
+        user1.balance = user1.balance + 10
+        userService.saveUser(user1)
+        user2.balance = user2.balance - 10
+        userService.saveUser(user2)
+
+        user1 = userService.getUser("64dbc0d899b0d0031c739f81")
+        user2 = userService.getUser("64dbc0d899b0d0031c739f81")
+        log.info("User 1 after = ${user1.balance.toString()}")
+        log.info("User 2 after = ${user2.balance.toString()}")
         if (error) {
             model.addAttribute("message", "error login")
         }
