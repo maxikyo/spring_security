@@ -70,29 +70,4 @@ class UserServiceImpl implements UserService {
             return findByName(principal.getName())
         }
     }
-
-//    @Override
-//    User updateUserBalance(String id, BalanceOperation balanceOperation, BigDecimal amount) {
-//        User user = getUser(id)
-//        if (user){
-//            if(balanceOperation == BalanceOperation.PLUS){
-//                user.balance = user.balance + amount
-//            }
-//            if (balanceOperation == BalanceOperation.PLUS && amount <= 0){
-//                throw new IllegalArgumentException("Amount must be greater than 0 for addition.");
-//            }
-//
-//            if(balanceOperation == BalanceOperation.MINUS){
-//                if (amount <= 0) {
-//                    throw new IllegalArgumentException("Amount must be greater than 0 for subtraction.")
-//                }
-//                if(amount > user.balance){ //может разделись баланс на разные сервисы или импл на минус и плюс, по разным классам
-//                    throw new IllegalArgumentException("Balance is ${user.balance} less then ${amount}")
-//                }
-//                user.balance = user.balance - amount
-//            }
-//            return saveUser(user)
-//        }else
-//            throw new IllegalArgumentException("User with ${id} did not found")
-//    }
 }

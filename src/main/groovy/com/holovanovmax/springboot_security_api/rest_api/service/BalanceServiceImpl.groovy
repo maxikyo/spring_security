@@ -26,7 +26,7 @@ class BalanceServiceImpl implements BalanceService{
                 if (amount <= 0) {
                     throw new IllegalArgumentException("Amount must be greater than 0 for subtraction.")
                 }
-                if(amount > user.balance){ //может разделись баланс на разные сервисы или импл на минус и плюс, по разным классам
+                if(amount > user.balance){
                     throw new IllegalArgumentException("Balance is ${user.balance} less then ${amount}")
                 }
                 user.balance = user.balance - amount
