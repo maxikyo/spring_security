@@ -1,5 +1,6 @@
-package com.holovanovmax.springboot_security_api.rest_api.model
+package com.holovanovmax.springboot_security_api.rest_api.model.userInformation
 
+import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.UserBalance
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Version
 import org.springframework.data.mongodb.core.mapping.Document
@@ -17,7 +18,9 @@ class User {
 
     String role
 
-    BigDecimal balance = new BigDecimal("0") //создать отдельную сущность + базу и соеленить
+    List<UserBalance> balances
+
+    //BigDecimal balance = new BigDecimal("0") //создать отдельную сущность + базу и соеленить
 
     @Version
     Long version = 0L

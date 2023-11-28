@@ -2,8 +2,8 @@ package com.holovanovmax.springboot_security_api.rest_api.service
 
 
 import com.holovanovmax.springboot_security_api.rest_api.contextLoader.ContextLoader
-import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
-import com.holovanovmax.springboot_security_api.rest_api.model.User
+import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
+import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
 
 
 class UserServiceTest extends ContextLoader {

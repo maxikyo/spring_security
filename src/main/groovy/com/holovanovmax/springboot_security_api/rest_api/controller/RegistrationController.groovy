@@ -1,7 +1,8 @@
 package com.holovanovmax.springboot_security_api.rest_api.controller
 
-import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
-import com.holovanovmax.springboot_security_api.rest_api.model.User
+import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
+import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.UserBalance
+import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
 import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import groovy.util.logging.Slf4j
@@ -43,9 +44,9 @@ class RegistrationController {
 
     @ResponseBody
     @GetMapping("/addMoney")
-    User addMoney() {
-        User user = userService.findByName("user")
-        balanceService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
+    UserBalance addMoney() {                               //нужно сначала создать айди?
+        UserBalance userBalance = balanceService.getUserBalance(id,"64dbc0d899b0d0031c739f81")
+        balanceService.updateUserBalance(userBalance.userId, BalanceOperation.PLUS, new BigDecimal("10"))
     }
 
 //    @ResponseBody

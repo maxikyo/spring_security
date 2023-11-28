@@ -1,7 +1,7 @@
 package com.holovanovmax.springboot_security_api.rest_api.service
 
-//import com.holovanovmax.springboot_security_api.rest_api.model.BalanceOperation
-import com.holovanovmax.springboot_security_api.rest_api.model.User
+//import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
+import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
 import com.holovanovmax.springboot_security_api.rest_api.repository.UsersRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
