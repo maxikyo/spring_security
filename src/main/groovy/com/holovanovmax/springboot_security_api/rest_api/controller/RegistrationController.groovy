@@ -3,6 +3,7 @@ package com.holovanovmax.springboot_security_api.rest_api.controller
 import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
 import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.UserBalance
 import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
+import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.UserDto
 import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import groovy.util.logging.Slf4j
@@ -42,24 +43,38 @@ class RegistrationController {
         return new ModelAndView("login", model)
     }
 
-    @ResponseBody
-    @GetMapping("/addMoney")
-    UserBalance addMoney() {                               //нужно сначала создать айди?
-        UserBalance userBalance = balanceService.getUserBalance(id,"64dbc0d899b0d0031c739f81")
-        balanceService.updateUserBalance(userBalance.userId, BalanceOperation.PLUS, new BigDecimal("10"))
-    }
-
 //    @ResponseBody
 //    @GetMapping("/addMoney")
-//    User tryToAddMoney() {
-//        User user = userService.findByName("user")
-//        balanceService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("0"))
+//    UserBalance addMoney() {                               //нужно сначала создать айди?
+//        UserBalance userBalance = balanceService.getUserBalance(userService.getUser(id),"64dbc0d899b0d0031c739f81")
+//        balanceService.updateUserBalance(userBalance.userId, BalanceOperation.PLUS, new BigDecimal("10"))
 //    }
-//
-//    @ResponseBody
-//    @GetMapping("/removeMoney")
-//    User removeMoney() {
-//        User user = userService.findByName("user")
-//        balanceService.updateUserBalance(user.id, BalanceOperation.MINUS, new BigDecimal("10"))
-//    }
+
+    @ResponseBody
+    @GetMapping("/addMoney")
+    UserDto tryToAddMoney() {
+        User user = userService.findByName("user")
+        UserBalance userBalance = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("0"))
+        return new UserDto(
+                id: user.id,
+                name: user.name,
+                password: user.password,
+                role: user.role,
+                balance: userBalance.balance
+        )
+    }
+
+    @ResponseBody
+    @GetMapping("/removeMoney")
+    UserDto removeMoney() {
+        User user = userService.findByName("user")
+        UserBalance userBalance = balanceService.updateUserBalance(user.id, BalanceOperation.MINUS, new BigDecimal("10"))
+        return new UserDto(
+                id: user.id,
+                name: user.name,
+                password: user.password,
+                role: user.role,
+                balance: userBalance.balance
+        )
+    }
 }

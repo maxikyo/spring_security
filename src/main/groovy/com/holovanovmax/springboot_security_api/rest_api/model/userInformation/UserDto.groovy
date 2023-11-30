@@ -20,7 +20,5 @@ class UserDto {
     @NotEmpty(message = "role can not be empty")
     String role
 
-//    @NotNull
-//    BigDecimal balance = new BigDecimal("0")
 
 }

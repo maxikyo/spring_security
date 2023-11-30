@@ -3,7 +3,9 @@ package com.holovanovmax.springboot_security_api.rest_api.service
 
 import com.holovanovmax.springboot_security_api.rest_api.contextLoader.ContextLoader
 import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
+import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.UserBalance
 import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
+
 
 
 class UserServiceTest extends ContextLoader {
@@ -16,11 +18,8 @@ class UserServiceTest extends ContextLoader {
                 password: "pass1",
                 role: "USER"
         ))
-
         when:
-        User updatedUser = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS
-                , new BigDecimal("10"))
-
+        UserBalance updatedUser = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS,new BigDecimal("10"))
         then:
         updatedUser.balance == new BigDecimal("10" )
     }
@@ -36,7 +35,7 @@ class UserServiceTest extends ContextLoader {
         ))
 
         when:
-        User updatedUser = balanceService.updateUserBalance(user1.id, BalanceOperation.MINUS
+        UserBalance updatedUser = balanceService.updateUserBalance(user1.id, BalanceOperation.MINUS
                 , new BigDecimal("10"))
 
         then:
@@ -104,7 +103,6 @@ class UserServiceTest extends ContextLoader {
                 name: "useruser4",
                 password: "pass1",
                 role: "USER",
-                balance: 50
         ))
 
         when:

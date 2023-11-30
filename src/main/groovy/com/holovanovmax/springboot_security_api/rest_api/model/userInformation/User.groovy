@@ -18,10 +18,6 @@ class User {
 
     String role
 
-    List<UserBalance> balances
-
-    //BigDecimal balance = new BigDecimal("0") //создать отдельную сущность + базу и соеленить
-
     @Version
     Long version = 0L
 
