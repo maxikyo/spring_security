@@ -1,5 +1,6 @@
 package com.holovanovmax.springboot_security_api.rest_api.model.userInformation
 
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.UserNote
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 
@@ -20,5 +21,9 @@ class UserDto {
     @NotEmpty(message = "role can not be empty")
     String role
 
+    @NotNull
+    BigDecimal balance = new BigDecimal("0")
 
+    @NotNull
+    List<UserNote> notes = []
 }

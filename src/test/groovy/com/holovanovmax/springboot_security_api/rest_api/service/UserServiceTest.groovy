@@ -3,8 +3,8 @@ package com.holovanovmax.springboot_security_api.rest_api.service
 
 import com.holovanovmax.springboot_security_api.rest_api.contextLoader.ContextLoader
 import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
-import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.UserBalance
-import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.UserBalance
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.User
 
 
 
@@ -31,15 +31,17 @@ class UserServiceTest extends ContextLoader {
                 name: "useruser",
                 password: "pass1",
                 role: "USER",
-                balance: 50
+
         ))
+        balanceService.updateUserBalance(user1.id, BalanceOperation.PLUS
+                , new BigDecimal("20"))
 
         when:
         UserBalance updatedUser = balanceService.updateUserBalance(user1.id, BalanceOperation.MINUS
                 , new BigDecimal("10"))
 
         then:
-        updatedUser.balance == new BigDecimal("40")
+        updatedUser.balance == new BigDecimal("10")
     }
 
     // -> test plus 0 to the balance
@@ -123,12 +125,6 @@ class UserServiceTest extends ContextLoader {
         then:
         thrown(IllegalArgumentException)
     }
-
-
-
-//    def "add money to userBalance"() {
-//        userService.updateUserBalance(userService.getUser("test").getId()){ если с айди не существует
-//        }
 }
 
 

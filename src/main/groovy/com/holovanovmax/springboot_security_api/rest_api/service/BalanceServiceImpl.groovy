@@ -1,10 +1,8 @@
 package com.holovanovmax.springboot_security_api.rest_api.service
 
 import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
-import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.UserBalance
-import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
-import com.holovanovmax.springboot_security_api.rest_api.repository.BalancesRepository
-//import com.holovanovmax.springboot_security_api.rest_api.repository.UsersRepository
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.UserBalance
+import com.holovanovmax.springboot_security_api.rest_api.data.reposiroty.BalanceRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -15,7 +13,7 @@ class BalanceServiceImpl implements BalanceService {
     UserServiceImpl userService
 
     @Autowired
-    private BalancesRepository balancesRepository
+    private BalanceRepository balancesRepository
 
 
     @Override
@@ -24,14 +22,15 @@ class BalanceServiceImpl implements BalanceService {
     }
 
     @Override
-    UserBalance getUserBalance(String userId) {
-        return balancesRepository.findById(userId).orElse(null)
+    UserBalance getUserBalance(String userId) {                                         //создает нулевой баланс.//нужно создавать сразу
+        return balancesRepository.findByUserId(userId).orElse(balancesRepository.save(new UserBalance(userId: userId,
+                balance: 0 )))
     }
 
     UserBalance updateUserBalance(String userId, BalanceOperation balanceOperation, BigDecimal amount) {
-        User user = userService.getUser(userId)
-        if (user) {
-            UserBalance userBalance = getUserBalance(user.id)
+//        User user = userService.isExist(userId) <- deleted //запрос базы данных
+        if (userService.isExist(userId)) {
+            UserBalance userBalance = getUserBalance(userId)
             if (balanceOperation == BalanceOperation.PLUS && amount <= 0) {
                 throw new IllegalArgumentException("Amount must be greater than 0 for addition.")
             }
@@ -53,6 +52,4 @@ class BalanceServiceImpl implements BalanceService {
             throw new IllegalArgumentException("User with ${userId} did not found")
 
     }
-
-
 }

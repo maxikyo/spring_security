@@ -1,6 +1,6 @@
 package com.holovanovmax.springboot_security_api.rest_api.security
 
-import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.User
 import com.holovanovmax.springboot_security_api.rest_api.service.UserServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.authority.SimpleGrantedAuthority

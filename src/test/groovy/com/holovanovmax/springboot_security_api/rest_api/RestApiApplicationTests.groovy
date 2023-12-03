@@ -4,9 +4,11 @@ import com.holovanovmax.springboot_security_api.rest_api.contextLoader.ContextLo
 import groovy.util.logging.Slf4j
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.data.mongodb.config.EnableMongoAuditing
 
 
 @Slf4j
+@EnableMongoAuditing()
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [
         ContextLoader,

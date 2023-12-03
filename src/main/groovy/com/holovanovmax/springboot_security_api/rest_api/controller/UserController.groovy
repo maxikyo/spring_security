@@ -1,6 +1,6 @@
 package com.holovanovmax.springboot_security_api.rest_api.controller
 
-import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.User
 import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.UserDto
 import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
@@ -52,7 +52,7 @@ class UserController {
     @GetMapping("/loginPage")
     String loginPage(@RequestParam(required = false) boolean error, Model model) {
 //        User user1 = userService.getUser("64dbc0d899b0d0031c739f81")
-//        User user2 = userService.getUser("64dbc0d899b0d0031c739f81")
+        //User user2 = userService.getUser("64dbc0d899b0d0031c739f81")
 //        log.info("User 1 before = ${user1.balance.toString()}") //2 переменные
 //        log.info("User 2 before = ${user2.balance.toString()}")
 //        user1.balance = user1.balance + 10

@@ -1,6 +1,6 @@
 package com.holovanovmax.springboot_security_api.rest_api.security
 
-import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
+import com.holovanovmax.springboot_security_api.rest_api.service.UserNoteService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -36,9 +36,13 @@ class SpringSecurity {
                                 '/tryToAddMoney',
                                 'removeMoney',
                                 '/registration',
-                                '/api/test_2'
-                                //'/api/test_1'
+                                '/api/test_2',
+                                '/addMoney',
+                                '/api/public_notes/**'
                         ).permitAll()
+                        .requestMatchers(
+                                '/api/private_note/**'
+                        ).authenticated()
                         .anyRequest().authenticated() //-<любой запрос, но для авторизованных пользователей в дальнейшемю
                 ).formLogin(
                 form -> form

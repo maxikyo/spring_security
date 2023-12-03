@@ -1,8 +1,8 @@
 package com.holovanovmax.springboot_security_api.rest_api.controller
 
 import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
-import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.UserBalance
-import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.UserBalance
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.User
 import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.UserDto
 import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
@@ -33,9 +33,13 @@ class RegistrationController {
     }
 
     @PostMapping("/api/registration")
-    ModelAndView registerNewUser(User user, ModelMap model) {
+    ModelAndView registerNewUser(UserDto userDto, ModelMap model) {
         try {
-            userService.registerNewUser(user)
+            userService.registerNewUser(new User(
+                    name: userDto.name,
+                    password: userDto.password,
+                    role: userDto.role
+            ))
             model.addAttribute("message","registration successful")
         }catch(RuntimeException e){
             model.addAttribute("message",e.message)
@@ -43,18 +47,12 @@ class RegistrationController {
         return new ModelAndView("login", model)
     }
 
-//    @ResponseBody
-//    @GetMapping("/addMoney")
-//    UserBalance addMoney() {                               //нужно сначала создать айди?
-//        UserBalance userBalance = balanceService.getUserBalance(userService.getUser(id),"64dbc0d899b0d0031c739f81")
-//        balanceService.updateUserBalance(userBalance.userId, BalanceOperation.PLUS, new BigDecimal("10"))
-//    }
 
     @ResponseBody
     @GetMapping("/addMoney")
     UserDto tryToAddMoney() {
-        User user = userService.findByName("user")
-        UserBalance userBalance = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("0"))
+        User user = userService.findByName("user1")
+        UserBalance userBalance = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
         return new UserDto(
                 id: user.id,
                 name: user.name,

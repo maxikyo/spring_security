@@ -1,8 +1,8 @@
 package com.holovanovmax.springboot_security_api.rest_api.service
 
 //import com.holovanovmax.springboot_security_api.rest_api.model.userBalance.BalanceOperation
-import com.holovanovmax.springboot_security_api.rest_api.model.userInformation.User
-import com.holovanovmax.springboot_security_api.rest_api.repository.UsersRepository
+import com.holovanovmax.springboot_security_api.rest_api.data.domains.User
+import com.holovanovmax.springboot_security_api.rest_api.data.reposiroty.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
@@ -13,7 +13,7 @@ import java.security.Principal
 class UserServiceImpl implements UserService {
 
     @Autowired
-    private UsersRepository usersRepository
+    private UserRepository usersRepository
 
     @Autowired
     private PasswordEncoder passwordEncoder
@@ -21,7 +21,6 @@ class UserServiceImpl implements UserService {
     @Override
     List<User> getAllUsers() {
         return usersRepository.findAll()
-
     }
 
     @Override
@@ -70,4 +69,9 @@ class UserServiceImpl implements UserService {
             return findByName(principal.getName())
         }
     }
+
+    @Override
+    Boolean isExist(String userId) {
+        usersRepository.existsById(userId)  // метод чтобы не доставать сущность с базы, а просто проверять наличие.
+    }                                       //если груви, убирать return
 }

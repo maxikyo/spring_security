@@ -18,7 +18,7 @@ import spock.lang.Specification
 @WebAppConfiguration
 @TestPropertySource(properties = ["de.flapdoodle.mongodb.embedded.version=5.0.5"])
 @Component
-public class ContextLoader extends Specification implements ApplicationContextInitializer<ConfigurableApplicationContext> {
+class ContextLoader extends Specification implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
 
     @Autowired

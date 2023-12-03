@@ -1,4 +1,4 @@
-package com.holovanovmax.springboot_security_api.rest_api.model.userBalance
+package com.holovanovmax.springboot_security_api.rest_api.data.domains
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.annotation.Version
@@ -15,7 +15,7 @@ class UserBalance {
     String userId
 
     @Version
-    Long version = 0L
+    Long version
 }
 
 
