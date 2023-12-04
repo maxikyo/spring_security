@@ -12,5 +12,7 @@ class UserControllerTest extends ContextLoader{
             expect: "the userController is created"
             userController
         }
+
+
     }
 

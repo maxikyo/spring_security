@@ -1,6 +1,5 @@
 package com.holovanovmax.springboot_security_api.rest_api.service
 
-import com.holovanovmax.springboot_security_api.rest_api.data.domains.User
 import com.holovanovmax.springboot_security_api.rest_api.data.domains.UserNote
 import com.holovanovmax.springboot_security_api.rest_api.data.reposiroty.UserNoteRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,42 +16,39 @@ class UserNoteServiceImpl implements UserNoteService{
 
     @Override
     List<UserNote> getPublicUserNote() {
-        userNoteRepository.findByIsPublic(true)
+        userNoteRepository.findAllByIsPublic(true)
     }
 
     @Override
-    List<UserNote> getPrivateUserNote(String id, String userId) {
-        userNoteRepository.findByUserIdAndIsPublic(userId, false)
+    List<UserNote> getAllByUserIdAndPublicStatus(String userId, boolean isPublic) {
+        userNoteRepository.findAllByUserIdAndIsPublic(userId, isPublic)
     }
 
     @Override
-    UserNote getUserNoteById(String id) {
-        userNoteRepository.findById(id).orElse(null )
+    List<UserNote> getByUserId(String userId) {
+        userNoteRepository.findAllByUserId(userId)
     }
 
     @Override
-    UserNote createNote(UserNote userNote) {
+    UserNote create(UserNote userNote) {
         userNoteRepository.save(userNote)
     }
 
 
     @Override
-    UserNote updateUserNote(String id, UserNote updatedNote) {
-        UserNote note = userNoteRepository.findById(id).orElse(null)
-        if (note){
+    UserNote update(UserNote updatedNote) {
+        UserNote note = userNoteRepository.findById(updatedNote.id).orElse(null)
+        if (!note){
             throw new IllegalArgumentException("Такой заметки не существует")
         }
         note.content = updatedNote.content
-        note.userId = updatedNote.userId
+        note.isPublic = updatedNote.isPublic
         userNoteRepository.save(note)
     }
 
     @Override
-    void deleteUserNote(String id) {
+    void delete(String id) {
         userNoteRepository.deleteById(id)
     }
 
-    UserNote getUserNote(String userId){
-        userNoteRepository.getNoteByUserId(userId).orElse(null)
-    }
 }

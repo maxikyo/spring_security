@@ -38,10 +38,10 @@ class SpringSecurity {
                                 '/registration',
                                 '/api/test_2',
                                 '/addMoney',
-                                '/api/public_notes/**'
+                                '/api/notes/get/all'
                         ).permitAll()
                         .requestMatchers(
-                                '/api/private_note/**'
+                                '/api/notes/get/all/my'
                         ).authenticated()
                         .anyRequest().authenticated() //-<любой запрос, но для авторизованных пользователей в дальнейшемю
                 ).formLogin(

@@ -6,13 +6,13 @@ interface UserNoteService {
 
     List<UserNote> getPublicUserNote()
 
-    List<UserNote> getPrivateUserNote(String id,String userId)
+    List<UserNote> getAllByUserIdAndPublicStatus(String userId, boolean isPublic)
 
-    UserNote getUserNoteById(String userId)
+    List<UserNote> getByUserId(String userId)
 
-    UserNote createNote(UserNote userNote)
+    UserNote create(UserNote userNote)
 
-    UserNote updateUserNote(String id, UserNote updatedNote)
+    UserNote update(UserNote updatedNote)
 
-    void deleteUserNote(String id)
+    void delete (String id)
 }

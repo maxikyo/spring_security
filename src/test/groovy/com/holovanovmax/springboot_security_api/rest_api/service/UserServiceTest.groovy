@@ -47,15 +47,14 @@ class UserServiceTest extends ContextLoader {
     // -> test plus 0 to the balance
     def "trying to add zero to userBalance"() {
         given:
-        User user = userService.registerNewUser(new User(
+        User user2 = userService.registerNewUser(new User(
                 name: "55664546",
                 password: "pass1",
                 role: "USER"
         ))
 
         when:
-        User updatedUser = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS
-
+        UserBalance updatedUser = balanceService.updateUserBalance(user2.id, BalanceOperation.PLUS
                 , new BigDecimal("0"))
 
         then:
@@ -68,8 +67,7 @@ class UserServiceTest extends ContextLoader {
         User user = userService.registerNewUser(new User(  // - возвращал null
                 name: "user1user2",
                 password: "pass1",
-                role: "USER",
-                balance: 10
+                role: "USER"
         ))
 
         when:
@@ -87,8 +85,7 @@ class UserServiceTest extends ContextLoader {
         User user2 = userService.registerNewUser(new User(
                 name: "useruser3",
                 password: "pass1",
-                role: "USER",
-                balance: 50
+                role: "USER"
         ))
 
         when:
