@@ -14,5 +14,5 @@ interface UserNoteService {
 
     UserNote update(UserNote updatedNote)
 
-    void delete (String id)
+    void delete (String id)  // -> узнать если нужно добавить boolean
 }

@@ -10,4 +10,5 @@ interface UserNoteRepository extends MongoRepository <UserNote, String>{
         List<UserNote> findAllByUserIdAndIsPublic(String userId, boolean isPublic)
 
         List<UserNote> findAllByUserId(String userId)
+
 }

@@ -7,8 +7,11 @@ import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserNoteService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -51,6 +54,7 @@ class UserNoteController {
         }
     }
 
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/api/notes/get/all/my")
     List<UserNote> getAllMyNotes(
             Principal principal
@@ -61,5 +65,11 @@ class UserNoteController {
         }else{
             throw new IllegalArgumentException("User did not found")
         }
+    }
+
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
+    @DeleteMapping("api/notes/delete/{id}")
+    ResponseEntity deleteNoteById(@PathVariable String id){
+        userNoteService.delete(id)
     }
 }

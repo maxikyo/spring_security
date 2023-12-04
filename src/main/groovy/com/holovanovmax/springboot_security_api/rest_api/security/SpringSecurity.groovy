@@ -43,6 +43,9 @@ class SpringSecurity {
                         .requestMatchers(
                                 '/api/notes/get/all/my'
                         ).authenticated()
+                        .requestMatchers(
+                                'api/notes/delete/{id}'
+                        ).authenticated()
                         .anyRequest().authenticated() //-<любой запрос, но для авторизованных пользователей в дальнейшемю
                 ).formLogin(
                 form -> form
