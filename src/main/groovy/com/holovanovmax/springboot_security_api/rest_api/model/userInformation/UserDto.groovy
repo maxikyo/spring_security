@@ -24,6 +24,4 @@ class UserDto {
     @NotNull
     BigDecimal balance = new BigDecimal("0")
 
-    @NotNull
-    List<UserNote> notes = []
 }

@@ -9,12 +9,7 @@ import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 import java.security.Principal
 
@@ -38,18 +33,18 @@ class UserNoteController {
     @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @PostMapping("/api/notes/create")
     UserNote getNoteByUser(
-        @RequestBody NoteCreateDto dto,
+            @RequestBody NoteCreateDto dto,
             Principal principal
-    ){
+    ) {
         User user = userService.findByPrincipal(principal)
-        if (user){
+        if (user) {
             UserNote newUserNote = userNoteService.create(new UserNote(
                     content: dto.content,
                     userId: user.id,
                     isPublic: dto.isPublic
             ))
             return newUserNote
-        }else{
+        } else {
             throw new IllegalArgumentException("User didn't found. Create is not possible")
         }
     }
@@ -58,18 +53,41 @@ class UserNoteController {
     @GetMapping("/api/notes/get/all/my")
     List<UserNote> getAllMyNotes(
             Principal principal
-    ){
+    ) {
         User user = userService.findByPrincipal(principal)
-        if (user){
+        if (user) {
             return userNoteService.getByUserId(user.id)
-        }else{
+        } else {
             throw new IllegalArgumentException("User did not found")
         }
     }
 
     @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
-    @DeleteMapping("api/notes/delete/{id}")
-    ResponseEntity deleteNoteById(@PathVariable String id){
+    @DeleteMapping("/api/notes/delete/{id}")
+    ResponseEntity deleteNoteById(@PathVariable String id) {
         userNoteService.delete(id)
     }
+
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
+    @PostMapping("/api/notes/update/my")
+    UserNote updateNote(  //можно через@PathVariable
+                          @RequestBody NoteCreateDto dto,
+                          Principal principal) {
+        User user = userService.findByPrincipal(principal)
+        if (user != principal){
+            return null
+        }
+        if (user) {
+            userNoteService.update(new UserNote(
+                    content: dto.content,
+                    userId: user.id,
+                    isPublic: dto.isPublic
+            ))
+        }else {
+            return null
+        }
+    }
 }
+
+
+

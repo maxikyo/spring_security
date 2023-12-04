@@ -17,8 +17,6 @@ class User {
 
     String role
 
-    List<UserNote> notes = []
-
     @Version
     Long version
 

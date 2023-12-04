@@ -40,12 +40,12 @@ class SpringSecurity {
                                 '/addMoney',
                                 '/api/notes/get/all'
                         ).permitAll()
-                        .requestMatchers(
-                                '/api/notes/get/all/my'
-                        ).authenticated()
-                        .requestMatchers(
-                                'api/notes/delete/{id}'
-                        ).authenticated()
+//                        .requestMatchers(         и так все запросы после авторизации
+//                                '/api/notes/get/all/my'
+//                        ).authenticated()
+//                        .requestMatchers(
+//                                'api/notes/delete/{id}'
+//                        ).authenticated()
                         .anyRequest().authenticated() //-<любой запрос, но для авторизованных пользователей в дальнейшемю
                 ).formLogin(
                 form -> form

@@ -52,7 +52,8 @@ class RegistrationController {
     @GetMapping("/addMoney")
     UserDto tryToAddMoney() {
         User user = userService.findByName("user1")
-        UserBalance userBalance = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS, new BigDecimal("10"))
+        UserBalance userBalance = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS
+                , new BigDecimal("10"))
         return new UserDto(
                 id: user.id,
                 name: user.name,
