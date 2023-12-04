@@ -70,7 +70,7 @@ class UserNoteController {
 
     @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @PostMapping("/api/notes/update/my")
-    UserNote updateNote(  //можно через@PathVariable
+    UserNote updateNote(  //можно через@PathVariable  //{id}
                           @RequestBody NoteCreateDto dto,
                           Principal principal) {
         User user = userService.findByPrincipal(principal)
