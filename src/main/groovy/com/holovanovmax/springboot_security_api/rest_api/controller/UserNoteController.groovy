@@ -55,7 +55,7 @@ class UserNoteController {
 
     @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/api/notes/get/all/my")
-    List<UserNote> getAllMyNotes(
+    List<UserNote> getAllMyNotes(@RequestParam // сделать 2 get'a в один
             Principal principal
     ) {
         User user = userService.findByPrincipal(principal)
@@ -68,7 +68,10 @@ class UserNoteController {
 
     @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @DeleteMapping("/api/notes/delete/{id}")
-    ResponseEntity deleteNoteById(@PathVariable String id) {
+    ResponseEntity deleteNoteById(@PathVariable String id,
+                                    Principal principal) {
+        User user = userService.findByPrincipal(principal)
+        userNoteService.checkNoteOwner(id, user.id)
         userNoteService.delete(id)
     }
 
@@ -78,21 +81,13 @@ class UserNoteController {
                         Principal principal
                         ) {
         User user = userService.findByPrincipal(principal)
-        if (!user) {
-            throw new IllegalArgumentException("You cannot update someone else's note")
-        } else {
-            UserNote userNote = userNoteService.getByIdAndUserId(dto.id, user.id)
-            if (!userNote){
-                throw new IllegalArgumentException("User with ${user.id} or note with ${dto.id} didn't found")
-            }
-            UserNote updatedNote = userNoteService.update(new UserNote(
+        userNoteService.checkNoteOwner(dto.id, user.id)
+            userNoteService.update(new UserNote(
                     id: dto.id,
                     content: dto.content,
                     userId: user.id,
                     isPublic: dto.isPublic
             ))
-            return updatedNote
-        }
     }
 }
 

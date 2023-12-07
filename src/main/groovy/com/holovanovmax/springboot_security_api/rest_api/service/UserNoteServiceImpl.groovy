@@ -53,6 +53,22 @@ class UserNoteServiceImpl implements UserNoteService{
 
     @Override
     UserNote getByIdAndUserId(String id, String userId) {
-        userNoteRepository.findByIdAndUserId(id, userId).orElse(null)
+        userNoteRepository.findByIdAndUserId(id, userId).orElseThrow(
+                () -> new IllegalArgumentException("User with ${userId} or note with ${id} didn't found"))
     }
+
+    @Override
+    Boolean existByIdAndUserId(String id, String userId) {
+        userNoteRepository.existByIdAndUserId(id, userId)
+    }
+
+    @Override
+    void checkNoteOwner(String id, String userId) {
+        if(!existByIdAndUserId(id, userId)) {
+            throw new IllegalArgumentException(
+                    "User with ${userId} or note with ${id} didn't found")
+        }
+    }
+
+
 }

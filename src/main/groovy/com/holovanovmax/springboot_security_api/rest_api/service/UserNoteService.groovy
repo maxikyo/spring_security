@@ -18,4 +18,8 @@ interface UserNoteService {
     void delete (String id)  // -> узнать если нужно добавить boolean
 
     UserNote getByIdAndUserId(String id, String userId)
+
+    Boolean existByIdAndUserId(String id, String userId)
+
+    void checkNoteOwner(String id, String userId)  //void ничего не возвращает, но может вернуть эксцепшн(останавливает его)
 }
