@@ -51,4 +51,8 @@ class UserNoteServiceImpl implements UserNoteService{
         userNoteRepository.deleteById(id)
     }
 
+    @Override
+    UserNote getByIdAndUserId(String id, String userId) {
+        userNoteRepository.findByIdAndUserId(id, userId).orElse(null)
+    }
 }

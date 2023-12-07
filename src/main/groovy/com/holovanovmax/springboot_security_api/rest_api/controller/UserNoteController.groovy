@@ -3,6 +3,7 @@ package com.holovanovmax.springboot_security_api.rest_api.controller
 import com.holovanovmax.springboot_security_api.rest_api.data.domains.User
 import com.holovanovmax.springboot_security_api.rest_api.data.domains.UserNote
 import com.holovanovmax.springboot_security_api.rest_api.model.userNote.NoteCreateDto
+import com.holovanovmax.springboot_security_api.rest_api.model.userNote.NoteUpdateDto
 import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserNoteService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
@@ -37,6 +38,9 @@ class UserNoteController {
             Principal principal
     ) {
         User user = userService.findByPrincipal(principal)
+        if (!user){
+            throw new IllegalArgumentException("New not can be created only for authorization users")
+        }
         if (user) {
             UserNote newUserNote = userNoteService.create(new UserNote(
                     content: dto.content,
@@ -70,21 +74,24 @@ class UserNoteController {
 
     @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @PostMapping("/api/notes/update/my")
-    UserNote updateNote(  //можно через@PathVariable  //{id}
-                          @RequestBody NoteCreateDto dto,
-                          Principal principal) {
+    UserNote updateNote(@RequestBody NoteUpdateDto dto,
+                        Principal principal
+                        ) {
         User user = userService.findByPrincipal(principal)
-        if (user != principal){
-            return null
-        }
-        if (user) {
-            userNoteService.update(new UserNote(
+        if (!user) {
+            throw new IllegalArgumentException("You cannot update someone else's note")
+        } else {
+            UserNote userNote = userNoteService.getByIdAndUserId(dto.id, user.id)
+            if (!userNote){
+                throw new IllegalArgumentException("User with ${user.id} or note with ${dto.id} didn't found")
+            }
+            UserNote updatedNote = userNoteService.update(new UserNote(
+                    id: dto.id,
                     content: dto.content,
                     userId: user.id,
                     isPublic: dto.isPublic
             ))
-        }else {
-            return null
+            return updatedNote
         }
     }
 }

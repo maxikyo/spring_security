@@ -11,4 +11,6 @@ interface UserNoteRepository extends MongoRepository <UserNote, String>{
 
         List<UserNote> findAllByUserId(String userId)
 
+        Optional<UserNote> findByIdAndUserId(String id, String userId)
+
 }
