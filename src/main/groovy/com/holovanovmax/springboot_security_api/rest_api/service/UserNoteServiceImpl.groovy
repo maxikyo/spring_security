@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service
 class UserNoteServiceImpl implements UserNoteService{
 
     @Autowired
-    UserServiceImpl userService
+    private UserServiceImpl userService
 
     @Autowired
-    UserNoteRepository userNoteRepository
+    private UserNoteRepository userNoteRepository
 
     @Override
     List<UserNote> getPublicUserNote() {
@@ -58,17 +58,16 @@ class UserNoteServiceImpl implements UserNoteService{
     }
 
     @Override
-    Boolean existByIdAndUserId(String id, String userId) {
-        userNoteRepository.existByIdAndUserId(id, userId)
+    Boolean existsByIdAndUserId(String id, String userId) {
+        userNoteRepository.existsByIdAndUserId(id, userId)
     }
+
 
     @Override
     void checkNoteOwner(String id, String userId) {
-        if(!existByIdAndUserId(id, userId)) {
+        if(!existsByIdAndUserId(id, userId)) {
             throw new IllegalArgumentException(
                     "User with ${userId} or note with ${id} didn't found")
         }
     }
-
-
 }

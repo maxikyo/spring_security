@@ -40,7 +40,7 @@ class SpringSecurity {
                                 '/addMoney',
                                 '/api/notes/get/all'
                         ).permitAll()
-//                        .requestMatchers(         и так все запросы после авторизации
+//                        .requestMatchers(         //и так все запросы после авторизации
 //                                '/api/notes/get/all/my'
 //                        ).authenticated()
 //                        .requestMatchers(

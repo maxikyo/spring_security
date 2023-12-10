@@ -13,6 +13,6 @@ interface UserNoteRepository extends MongoRepository <UserNote, String>{
 
         Optional<UserNote> findByIdAndUserId(String id, String userId) //-> check if user note/id are exist
 
-        Boolean existByIdAndUserId(String id, String userId)
+        Boolean existsByIdAndUserId(String id, String userId)
 
 }

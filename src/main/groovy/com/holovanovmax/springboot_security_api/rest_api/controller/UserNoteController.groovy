@@ -55,9 +55,7 @@ class UserNoteController {
 
     @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @GetMapping("/api/notes/get/all/my")
-    List<UserNote> getAllMyNotes(@RequestParam // сделать 2 get'a в один
-            Principal principal
-    ) {
+    List<UserNote> getAllMyNotes(Principal principal){
         User user = userService.findByPrincipal(principal)
         if (user) {
             return userNoteService.getByUserId(user.id)

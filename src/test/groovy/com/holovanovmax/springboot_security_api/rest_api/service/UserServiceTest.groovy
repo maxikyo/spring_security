@@ -19,7 +19,8 @@ class UserServiceTest extends ContextLoader {
                 role: "USER"
         ))
         when:
-        UserBalance updatedUser = balanceService.updateUserBalance(user.id, BalanceOperation.PLUS,new BigDecimal("10"))
+        UserBalance updatedUser = balanceService.updateUserBalance(
+                user.id, BalanceOperation.PLUS,new BigDecimal("10"))
         then:
         updatedUser.balance == new BigDecimal("10" )
     }

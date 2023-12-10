@@ -1,7 +1,6 @@
 package com.holovanovmax.springboot_security_api.rest_api.service
 
 import com.holovanovmax.springboot_security_api.rest_api.data.domains.UserNote
-import com.holovanovmax.springboot_security_api.rest_api.model.userNote.NoteUpdateDto
 
 interface UserNoteService {
 
@@ -19,7 +18,7 @@ interface UserNoteService {
 
     UserNote getByIdAndUserId(String id, String userId)
 
-    Boolean existByIdAndUserId(String id, String userId)
+    Boolean existsByIdAndUserId(String id, String userId)
 
     void checkNoteOwner(String id, String userId)  //void ничего не возвращает, но может вернуть эксцепшн(останавливает его)
 }

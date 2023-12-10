@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.web.WebAppConfiguration
+import org.springframework.test.web.servlet.MockMvc
 import spock.lang.Specification
 
 @Slf4j
@@ -27,6 +28,8 @@ class ContextLoader extends Specification implements ApplicationContextInitializ
     @Autowired public BalanceService balanceService
 
     @Autowired public UserNoteService userNoteService
+
+    @Autowired MockMvc mockMvc
 
     void setup(){
         log.info("setup")
