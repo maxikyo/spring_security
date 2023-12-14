@@ -33,32 +33,30 @@ class UserNoteControllerTest extends ContextLoader {
         userNote.userId == 1 // Assuming the admin user has id 1
         userNote.isPublic == noteCreateDto.isPublic
     }
-//    @WithMockUser(username = "user", roles = ["USER"], authorities = ["USER"]
-//            , password = "12345")
-//    @WithMockUser(username = "admin", roles = ["ADMIN"])
-//    def "Should create a new note for an authorized user"() {
-//
-//        // Use given-when-then blocks to structure the test
-//        given: "A valid NoteCreateDto"
-////        User user = userService.registerNewUser(new User(
-////                name: "admin",
-////                password: "pass1",
-////                role: "ADMIN"
-////        ))
-//        def noteCreateDto = new NoteCreateDto(content: "Hello world", isPublic: true)
-//
-//        when: "The controller method is called with the NoteCreateDto and the principal"
-//        userService.findByPrincipal(principal)
-//
-//        def userNote = userNoteController.getNoteByUser(noteCreateDto, principal)
-//
-//        then: "The userNote is not null and has the expected values"
-//        userNote != null
-//        userNote.content == noteCreateDto.content
-//        userNote.userId == 1 // Assuming the admin user has id 1
-//        userNote.isPublic == noteCreateDto.isPublic
-//    }
-//}
+
+
+    def "Should create a new note for an authorized user"() {
+
+        given: "A valid NoteCreateDto"
+        User user = userService.registerNewUser(new User(
+             name: "admin",
+               password: "pass1",
+                role: "ADMIN"
+        ))
+        def noteCreateDto = new NoteCreateDto(content: "Hello world", isPublic: true)
+
+        when: "The controller method is called with the NoteCreateDto and the principal"
+        userService.findByPrincipal(principal)
+
+        def userNote = userNoteController.getNoteByUser(noteCreateDto, principal)
+
+        then: "The userNote is not null and has the expected values"
+        userNote != null
+        userNote.content == noteCreateDto.content
+        userNote.userId == 1 // Assuming the admin user has id 1
+        userNote.isPublic == noteCreateDto.isPublic
+    }
+}
 
 
 
