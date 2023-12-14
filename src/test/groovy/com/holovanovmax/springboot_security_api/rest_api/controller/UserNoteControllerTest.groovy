@@ -39,9 +39,10 @@ class UserNoteControllerTest extends ContextLoader {
 
         given: "A valid NoteCreateDto"
         User user = userService.registerNewUser(new User(
-             name: "admin",
-               password: "pass1",
-                role: "ADMIN"
+            id: "1",
+            name: "admin",
+            password: "pass1",
+            role: "ADMIN"
         ))
         def noteCreateDto = new NoteCreateDto(content: "Hello world", isPublic: true)
 
