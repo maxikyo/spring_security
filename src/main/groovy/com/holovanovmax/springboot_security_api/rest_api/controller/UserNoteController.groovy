@@ -31,7 +31,7 @@ class UserNoteController {
         userNoteService.getPublicUserNote()
     }
 
-    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
+    @PreAuthorize('hasAuthority("ROLE_ADMIN") or hasAuthority("ROLE_USER")')
     @PostMapping("/api/notes/create")
     UserNote getNoteByUser(
             @RequestBody NoteCreateDto dto,
