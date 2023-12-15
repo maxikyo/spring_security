@@ -10,6 +10,7 @@ import com.holovanovmax.springboot_security_api.rest_api.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.bind.annotation.*
 
 import java.security.Principal
@@ -31,7 +32,7 @@ class UserNoteController {
         userNoteService.getPublicUserNote()
     }
 
-    @PreAuthorize('hasAuthority("ROLE_ADMIN") or hasAuthority("ROLE_USER")')
+    @PreAuthorize('hasAuthority("ADMIN") or hasAuthority("USER")')
     @PostMapping("/api/notes/create")
     UserNote getNoteByUser(
             @RequestBody NoteCreateDto dto,

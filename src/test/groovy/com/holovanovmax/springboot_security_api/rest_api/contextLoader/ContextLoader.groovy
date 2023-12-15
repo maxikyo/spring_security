@@ -12,9 +12,10 @@ import org.springframework.stereotype.Component
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.web.WebAppConfiguration
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
+import org.springframework.security.core.context.SecurityContextHolder
+
+import java.security.Principal
 
 @Slf4j
 @ContextConfiguration(classes = [RestApiApplication])
@@ -31,6 +32,7 @@ class ContextLoader extends Specification implements ApplicationContextInitializ
     @Autowired public UserNoteService userNoteService
 
 
+
     void setup(){
         log.info("setup")
     }
@@ -39,4 +41,6 @@ class ContextLoader extends Specification implements ApplicationContextInitializ
     void initialize(ConfigurableApplicationContext applicationContext) {
         log.info("init")
     }
+
+    //Principal principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal()
 }
