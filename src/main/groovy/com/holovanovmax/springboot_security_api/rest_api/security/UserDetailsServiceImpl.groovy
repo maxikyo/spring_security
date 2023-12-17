@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
 
-@Service("userDetailsService")
+@Service(value = "userDetailsServiceImpl")
  class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -21,10 +21,6 @@ import org.springframework.stereotype.Service
         if (user == null) {
             throw new UsernameNotFoundException("User not found")
         }
-        return new org.springframework.security.core.userdetails.User(
-                user.name,
-                user.password,
-                [new SimpleGrantedAuthority(user.role)]
-        )
+        return new MyUserDetails(user)
     }
 }

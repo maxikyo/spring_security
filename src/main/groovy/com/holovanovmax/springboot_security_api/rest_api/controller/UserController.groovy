@@ -76,6 +76,7 @@ class UserController {
         model.addAttribute("name", user.name)
         model.addAttribute("role", user.role)
         return "mainPage"
+
     }
 
 

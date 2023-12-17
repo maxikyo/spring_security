@@ -2,6 +2,7 @@ package com.holovanovmax.springboot_security_api.rest_api.security
 
 import com.holovanovmax.springboot_security_api.rest_api.service.UserNoteService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
@@ -18,7 +19,23 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 class SpringSecurity {
 
     @Autowired private UserDetailsService userDetailsService
+
     @Autowired private PasswordEncoder passwordEncoder
+
+
+    @Autowired
+    void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Autowired
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService)
+                //.passwordEncoder(passwordEncoder)
+
+    }
+
 
     @Bean
     static PasswordEncoder passwordEncoder(){
@@ -62,13 +79,7 @@ class SpringSecurity {
     }
 
 
-    @Autowired
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder)
 
-    }
 
 }
 
