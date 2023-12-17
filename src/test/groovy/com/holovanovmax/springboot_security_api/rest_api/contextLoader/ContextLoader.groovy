@@ -1,6 +1,7 @@
 package com.holovanovmax.springboot_security_api.rest_api.contextLoader
 
 import com.holovanovmax.springboot_security_api.rest_api.RestApiApplication
+import com.holovanovmax.springboot_security_api.rest_api.security.UserDetailsServiceImpl
 import com.holovanovmax.springboot_security_api.rest_api.service.BalanceService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserNoteService
 import com.holovanovmax.springboot_security_api.rest_api.service.UserService
@@ -30,6 +31,8 @@ class ContextLoader extends Specification implements ApplicationContextInitializ
     @Autowired public BalanceService balanceService
 
     @Autowired public UserNoteService userNoteService
+
+    @Autowired public UserDetailsServiceImpl userDetailsServiceImpl
 
 
 
