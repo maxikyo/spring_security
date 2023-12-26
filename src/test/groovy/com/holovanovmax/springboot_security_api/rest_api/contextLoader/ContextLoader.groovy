@@ -9,6 +9,8 @@ import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.ApplicationContextInitializer
 import org.springframework.context.ConfigurableApplicationContext
+import org.springframework.security.core.Authentication
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestPropertySource
@@ -45,5 +47,7 @@ class ContextLoader extends Specification implements ApplicationContextInitializ
         log.info("init")
     }
 
-    //Principal principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal()
+    Authentication getCurrentAuthentication(){
+        SecurityContextHolder.getContext().getAuthentication()
+    }
 }
